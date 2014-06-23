@@ -6,6 +6,7 @@ public class Run {
 	
 	Run(){
 		Inlezen inlezen = new Inlezen();
+		
 		// deze functie returned arraylist
 		List<List<String>> data = inlezen.readFile("xls", "D:\\simpel.xls");
 		

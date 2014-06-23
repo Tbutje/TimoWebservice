@@ -18,10 +18,12 @@ public class Inlezen {
 	// TODO: kies een excel bestandje
 	
 	private List<List<String>> data = null;
+	private String file_location;
 
-	public List<List<String>> readFile(String file_type, String location) {
+	public List<List<String>> readFile(String file_type, String file_location) {
 		//TODO:doe iets met string locatie
 		//TODO: error handling nu ook niet goed als je iets randoms invuld; misschien enum van maken?
+		this.file_location = file_location;
 		
 		switch(file_type){
 	
@@ -34,19 +36,17 @@ public class Inlezen {
 	}
 
 	private void read_xls() {
+		this.data = new ArrayList<List<String>>();
 		
 		try {
 
-			FileInputStream file = new FileInputStream(new File(
-					"D:\\simpel.xls"));
+			FileInputStream file = new FileInputStream(new File(this.file_location));
 
 			// Get the workbook instance for XLS file
 			HSSFWorkbook workbook = new HSSFWorkbook(file);
 
 			// Get first sheet from the workbook
 			HSSFSheet sheet = workbook.getSheetAt(0);
-
-	
 
 			// Iterate through each rows from first sheet
 			Iterator<Row> rowIterator = sheet.iterator();
