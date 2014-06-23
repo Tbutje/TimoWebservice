@@ -15,14 +15,13 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Inlezen {
-	// TODO: kies een excel bestandje
 	
-	private List<List<String>> data = null;
+	private List<List<Object>> data = null;
+	
 	private String file_location;
 
-	public List<List<String>> readFile(String file_type, String file_location) {
-		//TODO:doe iets met string locatie
-		//TODO: error handling nu ook niet goed als je iets randoms invuld; misschien enum van maken?
+	public List<List<Object>> readFile(String file_type, String file_location) {
+		//TODO: error handling nu  niet goed als je iets randoms invuld; misschien enum van maken?
 		this.file_location = file_location;
 		
 		switch(file_type){
@@ -36,7 +35,7 @@ public class Inlezen {
 	}
 
 	private void read_xls() {
-		this.data = new ArrayList<List<String>>();
+		this.data = new ArrayList<List<Object>>();
 		
 		try {
 
@@ -56,22 +55,19 @@ public class Inlezen {
 
 				// For each row, iterate through each columns
 				Iterator<Cell> cellIterator = row.cellIterator();
-				List<String> row_read = new ArrayList<String>();
+				List<Object> row_read = new ArrayList<Object>();
 				while (cellIterator.hasNext()) {
 
 					Cell cell = cellIterator.next();
 
 					switch (cell.getCellType()) {
 					case Cell.CELL_TYPE_BOOLEAN:
-
-						row_read.add(String.valueOf(cell.getBooleanCellValue()));
+						row_read.add(cell.getBooleanCellValue());
 						break;
 					case Cell.CELL_TYPE_NUMERIC:
-
-						row_read.add(String.valueOf(cell.getNumericCellValue()));
+						row_read.add(cell.getNumericCellValue());
 						break;
 					case Cell.CELL_TYPE_STRING:
-
 						row_read.add(cell.getStringCellValue());
 						break;
 					}
