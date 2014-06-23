@@ -1,0 +1,3778 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- PMDesignerServices msg.PM 3.4.6.0 (c) 2010-05-01 msg systems ag -->
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:de:msg:pm:designer:services" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PMDesignerServices" targetNamespace="urn:de:msg:pm:designer:services">
+	<wsdl:types>
+		<xsd:schema targetNamespace="urn:de:msg:pm:designer:services">
+                        <xsd:element name="modifyProperty">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of product module with the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage with the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="propertyName" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>name of the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="newValue" type="tns:PropertyValueType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>the new value to be set</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyPropertyResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="OperationResponseType">
+				<xsd:sequence>
+					<xsd:element name="resultCode" type="xsd:int" minOccurs="1" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>return code of operation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="resultMessage" type="xsd:string" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>message of return code of operation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="openSession">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="userName" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>name of the PM.Designer user</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="password" type="xsd:string" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>password of the PM.Designer user</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="datasource" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>PM.Designer datasource</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="workspaceID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of workspace</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="openSessionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OpenSessionResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of the openSession operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="SessionType">
+				<xsd:sequence>
+					<xsd:element name="sessionToken" type="xsd:unsignedInt" minOccurs="1" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>token of session</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="sessionID" type="xsd:string" minOccurs="1" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>id of session</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="OpenSessionResponseType">
+				<xsd:sequence>
+					<xsd:element name="operationResponse" type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>return value of this operation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="session" type="tns:SessionType" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>the new session</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="closeSession">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session to close</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="closeSessionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createProductModule">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="folderID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of base folder or structur folder</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="templateID" type="xsd:string" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product template</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createProductModuleResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:CreateProductModuleResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of the createProductModule operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="CreateProductModuleResponseType">
+				<xsd:sequence>
+					<xsd:element name="operationResponse" type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>return value of this operation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="createdModule" type="tns:ModuleDescriptionType" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>the new product module</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ModuleDescriptionType">
+				<xsd:sequence>
+					<xsd:element name="objectID" type="xsd:string" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>id of product module</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="generationID" type="xsd:string" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>id of generation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="adaptorstageID" type="xsd:string" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>id of adaptorstage</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="setModuleName">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>the new name to be set</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="setModuleNameResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="setGenerationName">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of generation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>the new name of generation to be set</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="setGenerationNameResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="setAdaptorstageName">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>the new name of adaptorstage to be set</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="setAdaptorstageNameResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="beginTransaction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="beginTransactionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="rollbackTransaction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="rollbackTransactionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+              <xsd:annotation>
+                <xsd:documentation>return value of this operation</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="commitTransaction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="commitTransactionResponse">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="closeTransaction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="closeTransactionResponse">
+				<xsd:annotation>
+					<xsd:documentation/>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteProductModule">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module to be deleted</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteProductModuleResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createGeneration">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createGenerationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:CreateGenerationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of create generation operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="CreateGenerationResponseType">
+				<xsd:sequence>
+					<xsd:element name="operationResponse" type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>return value of this operation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="generationID" type="xsd:string" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>id of the new generation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="adaptorstageID" type="xsd:string" maxOccurs="1" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>id of the new adaptorstage</xsd:documentation>
+          </xsd:annotation>
+          </xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="createAdaptorstage">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of generation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="templateID" type="xsd:string" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of template</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createAdaptorstageResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:CreateAdaptorstageResponseType">
+              <xsd:annotation>
+                <xsd:documentation>return value of createAdaptorstage operation</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="CreateAdaptorstageResponseType">
+				<xsd:sequence>
+					<xsd:element name="operationResponse" type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>return value of this opertaion</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="adaptorstageID" type="xsd:string" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>id of new adaptorstage</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="createRelation">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module if module without generations</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage if module with generations</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="modelRelationID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of model relation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="targetObjectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of target product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="createRelationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:CreateRelationResponseType">
+              <xsd:annotation>
+                <xsd:documentation>return value of createRelation operation</xsd:documentation>
+              </xsd:annotation>
+              </xsd:element>
+          </xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="CreateRelationResponseType">
+				<xsd:sequence>
+					<xsd:element name="operationResponse" type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>return value of this operation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="relationID" type="xsd:string" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>id of the new relation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="RelationType">
+				<xsd:sequence>
+					<xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>name of relation</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="reverseName" type="xsd:string" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>name of reverse relation</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="minCardinality" type="xsd:int" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>minimal cardinality</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="maxCardinality" type="xsd:int" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>maximal cardinality (0 = * )</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+					<xsd:element name="minReverseCardinality" type="xsd:int" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>minimal cardinality of reverse relation</xsd:documentation>
+            </xsd:annotation>
+      		</xsd:element>
+					<xsd:element name="maxReverseCardinality" type="xsd:int" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>maximal cardinality of reverse relation (0 = * )</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="GenerationType">
+				<xsd:sequence>
+          <xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>name of generation</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="salesPeriodFrom" type="xsd:int" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>date of sales period from (YYYYMMDD, LOWDATE=-99999999)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="salesPeriodTo" type="xsd:int" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>date of sales period to (YYYYMMDD, HIGHDATE=99999999)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="endModification" type="xsd:int" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>date of end modification (YYYYMMDD, HIGHDATE=99999999)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="endExtension" type="xsd:int" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>date of end extension (YYYYMMDD, HIGHDATE=99999999)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="deleteRelation">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module for modules without generations</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" minOccurs="0" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage for modules with generations</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="relationID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of relation to be deleted</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteRelationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="PropertyValueType">
+				<xsd:sequence>
+					<xsd:choice minOccurs="1" maxOccurs="1">
+						<xsd:element name="stringValue" type="xsd:string" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>value of type string</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="integerValue" type="xsd:int" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>value of type integer</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="floatValue" type="xsd:double" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>value of type float</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="dateValue" type="xsd:int" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>value of type date (YYYYMMDD)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="booleanValue" type="xsd:boolean" maxOccurs="1" minOccurs="0">
+			            	<xsd:annotation>
+			              		<xsd:documentation>value of type boolean</xsd:documentation>
+			            	</xsd:annotation>
+			            </xsd:element>
+						<xsd:element name="timeValue" type="xsd:string" maxOccurs="1" minOccurs="0">
+			            	<xsd:annotation>
+			              		<xsd:documentation>value of type time (HH:MM)</xsd:documentation>
+			            	</xsd:annotation>
+			            </xsd:element>
+						<xsd:element name="arrayID" type="xsd:string" maxOccurs="1" minOccurs="0">
+			            	<xsd:annotation>
+			              		<xsd:documentation>id of array for multidimensional properties</xsd:documentation>
+			            	</xsd:annotation>
+			            </xsd:element>
+						<xsd:element name="multilanguageValue" type="tns:MultiLanguageString" maxOccurs="1" minOccurs="0">
+			            	<xsd:annotation>
+			              		<xsd:documentation>value of type multilanguage string</xsd:documentation>
+			            	</xsd:annotation>
+			            </xsd:element>
+			          </xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PropertyRangeRestrictionValueType">
+				<xsd:sequence>
+					<xsd:choice minOccurs="1" maxOccurs="1">
+						<xsd:element name="integerValue" type="xsd:int" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>value of type integer</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="floatValue" type="xsd:double" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>value of type float</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="dateValue" type="xsd:int" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>value of type date (YYYYMMDD)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+          			</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:attributeGroup name="NewAttributeGroup"/>
+			<xsd:element name="modifyAdaptorstage">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of generation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage to be modified</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageData" type="tns:AdaptorstageType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>new adaptorstage data</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyAdaptorstageResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyGeneration">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of generation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationData" type="tns:GenerationType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>the new generation data</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyGenerationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="AdaptorstageType">
+				<xsd:sequence>
+					<xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>name of adaptorstage</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+					<xsd:element name="validFrom" type="xsd:int" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>date of valid from (YYYYMMDD, LOWDATE=-99999999)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="validTo" type="xsd:int" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>date of valid to (YYYYMMDD, HIGHDATE=99999999)</xsd:documentation> 
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="deleteGeneration">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of generation to be deleted</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteGenerationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteAdaptorstage">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage to be deleted</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="deleteAdaptorstageResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+            <xsd:annotation>
+              <xsd:documentation>return value of this operation</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+      </xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyRelation">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of product module for modules without generations</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage for modules with generations</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="relationID" type="xsd:string" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of relation to be modified</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="relationData" type="tns:RelationType" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>the new relation data</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyRelationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType">
+              <xsd:annotation>
+                <xsd:documentation>return value of this operation</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="MultiLanguageString">
+				<xsd:sequence>
+					<xsd:element name="isoCode" type="xsd:string" maxOccurs="1" minOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>ISO code of language (f.i. "DEU" or "ENG")</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+					<xsd:element name="value" type="xsd:string" maxOccurs="1" minOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>language depended string</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="findObjectID">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<xsd:element name="session" type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element><xsd:element name="className"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+</xsd:element>
+						<xsd:element name="objectName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of product module to be find
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findObjectIDResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:FindIDResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+			<xsd:complexType name="FindIDResponseType">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:string" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								identifer of searched object
+							</xsd:documentation>
+						</xsd:annotation></xsd:element>
+					<xsd:element name="operationResponse" type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								return value of this opertaion
+							</xsd:documentation>
+						</xsd:annotation></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="findClassID">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="className"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findClassIDResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:FindIDResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findGenerationID">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="className"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of product module
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of generation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findGenerationIDResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:FindIDResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findAdaptStageID">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="className"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of product module
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of generation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptStageName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of adapter stage
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findAdaptStageIDResponse">
+                <xsd:annotation>
+                	<xsd:documentation></xsd:documentation>
+                </xsd:annotation>
+                <xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:FindIDResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findFolderID">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="className"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="fullPath"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		full path to folder
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="libraryName"
+							type="xsd:string" maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of library
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findFolderIDResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:FindIDResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findTemplateID">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="className"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="templateName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of product module template
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findTemplateIDResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:FindIDResponseType"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findModelRelationID">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="sourceClassID"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		identifer of relation source class
+
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="destClassID"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		identifer of relation target class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="modelRelationName"
+							type="xsd:string" maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of model relation between the
+                            		classes if not unique
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="findModelRelationIDResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:FindIDResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getPropertyType">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="className"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of class
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of product module
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="propertyName"
+							type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of property
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="generationName"
+							type="xsd:string" maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of generation if has
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptStageName"
+							type="xsd:string" maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		name of adapter stage if has
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getPropertyTypeResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:PropertyTypeResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+			<xsd:complexType name="PropertyTypeResponseType">
+				<xsd:sequence>
+					<xsd:element name="type" type="xsd:string" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								type of property: "string", "integer",
+								"float", "date", "boolean", "time" or
+								"multilanguage"
+
+							</xsd:documentation>
+						</xsd:annotation></xsd:element>
+					<xsd:element name="dimension" type="xsd:int" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								dimension of property
+							</xsd:documentation>
+						</xsd:annotation></xsd:element>
+					<xsd:element name="operationResponse" type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								return value of this operation
+							</xsd:documentation>
+						</xsd:annotation></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="getFolderPath">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session"
+							type="tns:SessionType">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		session for this operation
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+						<xsd:element name="templateID"
+							type="xsd:string">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		id of template
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getFolderPathResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:GetFolderPathResponseType"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+			<xsd:complexType name="GetFolderPathResponseType">
+				<xsd:sequence>
+					<xsd:element name="operationResponse"
+						type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		return value of this operation
+                        	</xsd:documentation>
+                        </xsd:annotation>
+					</xsd:element>
+					<xsd:element name="folderPath" type="xsd:string" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								path from base folder to template
+							</xsd:documentation>
+						</xsd:annotation></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="getPropertyRestriction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module with the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage with the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="propertyName" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>name of the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="getPropertyRestrictionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:GetPropertyRestrictionResponseType">
+							<xsd:annotation>
+								<xsd:documentation>
+									return value of this operation
+								</xsd:documentation>
+							</xsd:annotation></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>			
+			<xsd:complexType name="GetPropertyRestrictionResponseType">
+				<xsd:sequence>
+					<xsd:element name="operationResponse"
+						type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								return value of this operation
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="restriction"
+						type="tns:PropertyRestrictionType" maxOccurs="1" minOccurs="0">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="PropertyRestrictionKind">
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="none" />
+					<xsd:enumeration value="singleValue" />
+					<xsd:enumeration value="range" />
+					<xsd:enumeration value="singleList" />
+					<xsd:enumeration value="enumAssignment"></xsd:enumeration>
+					<xsd:enumeration
+						value="enumAssignmentSelectedValues">
+					</xsd:enumeration>
+
+
+					<xsd:enumeration value="tableColumnAssignment"></xsd:enumeration>
+					<xsd:enumeration
+						value="tableColumnAssignmentSelectedValues">
+					</xsd:enumeration>
+					<xsd:enumeration value="unsupported"></xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="PropertyRestrictionType">
+				<xsd:sequence>
+					<xsd:element name="kind" type="tns:PropertyRestrictionKind" minOccurs="1" maxOccurs="1">
+					</xsd:element>
+					<xsd:choice minOccurs="0" maxOccurs="1">
+						<xsd:element name="singleValue"
+							type="tns:PropertyValueType" minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="listValue" maxOccurs="1"
+							minOccurs="0" type="tns:PropertyValueListType">
+
+						</xsd:element>
+						<xsd:element name="range"
+							type="tns:PropertyRangeRestrictionType" minOccurs="0"
+							maxOccurs="1">
+						</xsd:element>
+
+						<xsd:element name="enumReference"
+							type="tns:PropertyEnumRestrictionType" maxOccurs="1"
+							minOccurs="0">
+						</xsd:element>
+						<xsd:element name="tableColumnReference"
+							type="tns:PropertyTableColumnRestrictionType" maxOccurs="1" minOccurs="0">
+						</xsd:element>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:complexType>		
+			<xsd:complexType name="PropertyRangeRestrictionType">
+				<xsd:sequence>
+					<xsd:element name="minValue"
+						type="tns:PropertyRangeRestrictionValueType" minOccurs="0"
+						maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="maxValue"
+						type="tns:PropertyRangeRestrictionValueType" minOccurs="0" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="step" type="tns:PropertyRangeRestrictionValueType" minOccurs="0" maxOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="modifyPropertyRestriction">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="session" type="tns:SessionType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>session for this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectID" type="xsd:string" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>id of product module with the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="adaptorstageID" type="xsd:string" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>id of adaptorstage with the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="propertyName" type="xsd:string" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>name of the property</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="restriction"	type="tns:PropertyRestrictionType" minOccurs="1" maxOccurs="1">
+						</xsd:element>						
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyPropertyRestrictionResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType" minOccurs="1" maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>return value of this operation</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyPropertyList">
+				<xsd:complexType>
+					<xsd:sequence>
+
+						<xsd:element name="session"
+							type="tns:SessionType" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									session for this operation
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="objectKey"
+							type="tns:ObjectKeyType" maxOccurs="1" minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									object key of product module with
+									the properties
+
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+
+						<xsd:element name="propertyList"
+							type="tns:PropertyDataType" maxOccurs="unbounded"
+							minOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									list of property data contains
+									optional values and restrictions
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="replaceAll"
+							type="xsd:boolean" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		if this flag is set all existing
+                            		properties are removed before list
+                            		is processed
+                            	</xsd:documentation>
+                            </xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="modifyPropertyListResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="tns:OperationResponseType"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		
+			<xsd:complexType name="PropertyDataType">
+				<xsd:sequence>
+					<xsd:element name="propertyName" type="xsd:string"
+						maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of property
+                        	</xsd:documentation>
+                        </xsd:annotation>
+					</xsd:element>
+					<xsd:element name="newValue"
+						type="xsd:string" maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		new property value
+                        	</xsd:documentation>
+                        </xsd:annotation>
+					</xsd:element>
+					<xsd:element name="newRestriction" type="tns:PropertyRestrictionType" maxOccurs="1" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>
+								new property restriction
+							</xsd:documentation>
+						</xsd:annotation></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		
+            <xsd:element name="createProductModuleEx">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="className" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="productModuleName"
+            				type="xsd:string" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="folderID" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="templateName"
+            				type="xsd:string" maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+            			<xsd:element name="propertyList"
+            				type="tns:PropertyDataType" maxOccurs="unbounded" minOccurs="0">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createProductModuleExResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="out" type="tns:CreateProductModuleExResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="CreateProductModuleExResponseType">
+            	<xsd:sequence>
+            		<xsd:element name="operationResponse"
+            			type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		return value of this operation
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="createdModule"
+            			type="tns:ModuleDescriptionType" maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		description of created product module
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="objectKey" type="tns:ObjectKeyType" maxOccurs="1" minOccurs="0">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					object key of created product module
+
+            				</xsd:documentation>
+            			</xsd:annotation></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+		
+        
+        
+            <xsd:complexType name="ObjectKeyType">
+            	<xsd:sequence>
+            		<xsd:element name="className" type="xsd:string"
+            			maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of class
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="productModuleName"
+            			type="xsd:string" maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of product module
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="generationName" type="xsd:string"
+            			maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of generation
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="adaptorstageName" type="xsd:string" maxOccurs="1" minOccurs="0">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					name of adaptor stage
+            				</xsd:documentation>
+            			</xsd:annotation></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="createAdaptorStageEx">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="className" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+                        <xsd:element name="productModuleName" type="xsd:string" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+                        <xsd:element name="folderID" type="xsd:string" maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+                        <xsd:element name="templateName" type="xsd:string" maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+            			<xsd:element name="generation"
+            				type="tns:GenerationType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="adaptorstage"
+            				type="tns:AdaptorstageType" maxOccurs="1"
+            				minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="propertyList"
+            				type="tns:PropertyDataType" maxOccurs="unbounded"
+            				minOccurs="0">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createAdaptorStageExResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="out" type="tns:CreateAdaptorStageExResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="CreateAdaptorStageExResponseType">
+            	<xsd:sequence>
+            		<xsd:element name="operationResponse"
+            			type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		return value for this operation
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="createdModule"
+            			type="tns:ModuleDescriptionType" maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		description of created adaptor stage
+                        		(includes product module)
+
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="objectKey" type="tns:ObjectKeyType" maxOccurs="1" minOccurs="0">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					object key of created adaptor stage
+            					(includes product module)
+
+            				</xsd:documentation>
+            			</xsd:annotation></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="deleteProductModuleByObjectKey">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="objectKey"
+            				type="tns:ObjectKeyType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteProductModuleByObjectKeyResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="out" type="tns:OperationResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteAdaptorStageByObjectKey">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="objectKey"
+            				type="tns:ObjectKeyType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteAdaptorStageByObjectKeyResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="out" type="tns:OperationResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createRelations">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="objectKey"
+            				type="tns:ObjectKeyType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="relationList"
+            				type="tns:RelationDescriptionType" maxOccurs="unbounded"
+            				minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="replaceAll"
+            				type="xsd:boolean" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		if this flag is set all existing
+                            		relations are removed before list is
+                            		processed
+                            	</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createRelationsResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="out" type="tns:CreateRelationsResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="RelationDescriptionType">
+            	<xsd:sequence>
+            		<xsd:element name="targetClassName"
+            			type="xsd:string" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="targetProductModuleName"
+            			type="xsd:string" maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="modelRelationName"
+            			type="xsd:string" maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="relation" type="tns:RelationType"
+            			maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="CreateRelationsResponseType">
+            	<xsd:sequence>
+            		<xsd:element name="operationResponse"
+            			type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		return value of this operation
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="createdRelations" type="tns:RelationKeyType" maxOccurs="unbounded" minOccurs="0">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					list of created relations
+            				</xsd:documentation>
+            			</xsd:annotation></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="deleteRelations">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="objectKey"
+            				type="tns:ObjectKeyType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="relationKeyList"
+            				type="tns:RelationKeyType" maxOccurs="unbounded" minOccurs="1">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="deleteRelationsResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+            			<xsd:element name="out" type="tns:OperationResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="RelationKeyType">
+                <xsd:annotation>
+                	<xsd:documentation>
+                		identifier of relation
+                	</xsd:documentation>
+                </xsd:annotation>
+                <xsd:sequence>
+            		<xsd:element name="relationID" type="xsd:string"
+            			maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="relationName" type="xsd:string"
+            			maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of relation
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="modelRelationName"
+            			type="xsd:string" maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of model relation
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+                    <xsd:element name="targetClassName" type="xsd:string" maxOccurs="1" minOccurs="0">
+                    	<xsd:annotation>
+                    		<xsd:documentation>
+                    			name of class of referenced product
+                    			module
+                    		</xsd:documentation>
+                    	</xsd:annotation></xsd:element>
+                    <xsd:element name="targetProductModuleName"
+            			type="xsd:string" maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of referenced product module
+                        	</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modifyTableData">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="name" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="delRows"
+            				type="tns:TableRowListType" maxOccurs="1"
+            				minOccurs="0">
+            			</xsd:element>
+                        <xsd:element name="updRows" type="tns:TableModifyRowType" maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+                        <xsd:element name="addRows"
+            				type="tns:TableRowListType" maxOccurs="1"
+            				minOccurs="0">
+            			</xsd:element>
+
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="modifyTableDataResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out" type="tns:OperationResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+		
+        
+            <xsd:complexType name="TableRowListType">
+            	<xsd:sequence>
+                    <xsd:element name="columnNames" type="xsd:string" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+
+                    <xsd:element name="rowValues" type="tns:TableRowValuesType" maxOccurs="unbounded" minOccurs="1">
+            		</xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="TableRowValuesType">
+            	<xsd:sequence>
+            		<xsd:element name="columnValue" type="xsd:string" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            
+            <xsd:complexType name="TableModifyRowType">
+            	<xsd:sequence>
+            		<xsd:element name="keyCells"
+            			type="tns:TableRowListType" maxOccurs="1"
+            			minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="valueCells"
+            			type="tns:TableRowListType" maxOccurs="1"
+            			minOccurs="1">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modifyEnumeration">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="name" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+
+            			<xsd:element name="delValues" type="xsd:string"
+            				maxOccurs="unbounded" minOccurs="0">
+            			</xsd:element>
+
+
+            			<xsd:element name="updValues"
+            				type="tns:EnumDataType" maxOccurs="unbounded"
+            				minOccurs="0">
+            				<xsd:annotation>
+            					<xsd:documentation>
+            						values that will be in enumeration,
+            						existing values will be updated, new
+            						values inserted
+            					</xsd:documentation>
+            				</xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="replaceAll"
+            				type="xsd:boolean" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>
+                            		if this flag is set all existing
+                            		values are removed before list of
+                            		new values is processed, it's like
+                            		delValues contains all existing
+                            		values
+                            	</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="modifyEnumerationResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out"
+            				type="tns:OperationResponseType">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="EnumDataType">
+            	<xsd:sequence>
+            		<xsd:element name="identifier" type="xsd:string"
+            			maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="newValue" type="xsd:string"
+            			maxOccurs="1" minOccurs="0">
+            		</xsd:element>
+            		<xsd:element name="languageData"
+            			type="tns:EnumLanguageDataType" maxOccurs="unbounded"
+            			minOccurs="0">
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="EnumLanguageDataType">
+            	<xsd:sequence>
+            		<xsd:element name="isoCode" type="xsd:string"
+            			maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		ISO code of language (f.i. "DEU" or
+                        		"ENG")
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="colum" type="xsd:string" maxOccurs="1" minOccurs="1">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					column name of value
+            				</xsd:documentation>
+            			</xsd:annotation></xsd:element>
+            		<xsd:element name="newValue" type="xsd:string" maxOccurs="1" minOccurs="1"></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="getTableLayout">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="name"
+            				type="xsd:string" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getTableLayoutResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out"
+            				type="tns:GetTableLayoutResponseType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getTableData">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="name"
+            				type="xsd:string" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getTableDataResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out"
+            				type="tns:GetTableDataResponseType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="TableLayoutColumnType">
+            	<xsd:sequence>
+            		<xsd:element name="name" type="xsd:string"
+            			maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		name of column
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="type" maxOccurs="1"
+            			minOccurs="1" type="tns:TableColumnType">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					type of column
+            				</xsd:documentation>
+            			</xsd:annotation>
+
+            		</xsd:element>
+            		<xsd:element name="isKey" type="xsd:boolean"
+            			maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		key indicator
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+                    <xsd:element name="isoCode" type="xsd:string" maxOccurs="1" minOccurs="0">
+                    	<xsd:annotation>
+                    		<xsd:documentation>
+                    			ISO code of language columns (f.i. "DEU"
+                    			or "ENG")
+
+                    		</xsd:documentation>
+                    	</xsd:annotation></xsd:element>
+                    <xsd:element name="restriction"
+            			type="tns:TableColumnValueRestrictionType" maxOccurs="1"
+            			minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		specified value restriction
+                        	</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+            		<xsd:element name="extensionRestriction"
+            			type="tns:TableColumnValueRestrictionType" maxOccurs="1"
+            			minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		additional specified value extension
+                        		limits value between restriction and
+                        		this value
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="TableColumnValueRestrictionType">
+            	<xsd:sequence>
+            		<xsd:element name="restriction" type="tns:TableValueRestrictionKind">
+            		</xsd:element>
+            		<xsd:element name="value" type="xsd:string"></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="GetTableLayoutResponseType">
+            	<xsd:sequence>
+            		<xsd:element name="operationResponse"
+            			type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					return value of this operation
+            				</xsd:documentation>
+            			</xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="tableColumns"
+            			type="tns:TableLayoutColumnType" maxOccurs="unbounded"
+            			minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		list of logical columns
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="GetTableDataResponseType">
+            	<xsd:sequence>
+            		<xsd:element name="operationResponse"
+            			type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+            			<xsd:annotation>
+            				<xsd:documentation>
+            					return value of this operation
+            				</xsd:documentation>
+            			</xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="tableColumns"
+            			type="tns:TableLayoutColumnType" maxOccurs="unbounded"
+            			minOccurs="0">
+                        <xsd:annotation>
+                        	<xsd:documentation>
+                        		list of logical columns
+                        	</xsd:documentation>
+                        </xsd:annotation>
+            		</xsd:element>
+           			<xsd:element name="tableValues"
+           				type="tns:TableRowValuesListType" maxOccurs="1" minOccurs="0">
+                        <xsd:annotation>
+                          	<xsd:documentation>table data, according to columns of layout
+</xsd:documentation>
+                        </xsd:annotation>
+           			</xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:simpleType name="TableValueRestrictionKind">
+            	<xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="none"></xsd:enumeration>
+            		<xsd:enumeration value="equal"></xsd:enumeration>
+            		<xsd:enumeration value="notequal"></xsd:enumeration>
+            		<xsd:enumeration value="greater"></xsd:enumeration>
+            		<xsd:enumeration value="greaterequal"></xsd:enumeration>
+            		<xsd:enumeration value="less"></xsd:enumeration>
+            		<xsd:enumeration value="lessequal"></xsd:enumeration>
+            		<xsd:enumeration value="unsupported"></xsd:enumeration>
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="PropertyValueListType">
+            	<xsd:sequence>
+
+
+
+
+
+            		<xsd:element name="valueList" type="tns:PropertyValueType" maxOccurs="unbounded" minOccurs="0"></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="modifyPropertyTag">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session" type="tns:SessionType"
+            				maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>session for this operation</xsd:documentation></xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="objectID" type="xsd:string"
+            				maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>id of product module with the property</xsd:documentation></xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="adaptorstageID"
+            				type="xsd:string" maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>id of adaptorstage with the property</xsd:documentation></xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="propertyName"
+            				type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>name of the property</xsd:documentation></xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="tagID" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>id of the tag in model</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="newTagValue"
+            				type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>the new value to be set</xsd:documentation></xsd:annotation>
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="modifyPropertyTagResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out" type="tns:OperationResponseType">
+            				<xsd:annotation>
+            					<xsd:documentation>return value of this operation
+</xsd:documentation>
+            				</xsd:annotation></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createTableEx">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>session for this operation</xsd:documentation></xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="libraryID" type="xsd:string"
+            				maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>library where this table is to be created, either this or folderid must be provided
+</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="folderID" type="xsd:string"
+            				maxOccurs="1" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>folder where this table is to be created, either this or libraryid must be provided</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="tableName" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>name of the table</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="tableColumns"
+            				type="tns:TableLayoutColumnType" maxOccurs="unbounded"
+            				minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>list of column descriptions name, type and iskey should be specified</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="tableValue"
+            				type="tns:TableRowListType" maxOccurs="unbounded" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>initial data to be inserted into table, data columns must be a subset of given layout
+</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            		</xsd:sequence>
+
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createTableExResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out" type="tns:CreateTableExResponseType">
+            				<xsd:annotation>
+            					<xsd:documentation>return value of the createTable operation</xsd:documentation>
+            				</xsd:annotation></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="CreateTableExResponseType">
+            	<xsd:sequence>
+            		<xsd:element name="operationResponse"
+            			type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>return value of this operation</xsd:documentation></xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="tableID" type="xsd:string" maxOccurs="1" minOccurs="0">
+            			<xsd:annotation>
+            				<xsd:documentation>id of created table</xsd:documentation>
+            			</xsd:annotation></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:simpleType name="TableColumnType">
+            	<xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="none"></xsd:enumeration>
+            		<xsd:enumeration value="float"></xsd:enumeration>
+            		<xsd:enumeration value="integer"></xsd:enumeration>
+            		<xsd:enumeration value="string"></xsd:enumeration>
+            		<xsd:enumeration value="date"></xsd:enumeration>
+            		<xsd:enumeration value="unsupported"></xsd:enumeration>
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+        
+            <xsd:complexType name="PropertyTableColumnRestrictionType">
+            	<xsd:sequence>
+            		<xsd:element name="tableName" type="xsd:string"
+            			maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="tableColumn" type="xsd:string"
+            			maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="listSelectedValues" type="tns:PropertyValueListType" maxOccurs="1" minOccurs="0"></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		
+            <xsd:complexType name="PropertyEnumRestrictionType">
+            	<xsd:sequence>
+            		<xsd:element name="enumName" type="xsd:string"
+            			maxOccurs="1" minOccurs="1">
+            		</xsd:element>
+            		<xsd:element name="listSelectedValues" type="tns:PropertyValueListType" maxOccurs="1" minOccurs="0"></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="createEnumEx">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="libraryID" type="xsd:string"
+            				maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+            			<xsd:element name="folderID" type="xsd:string"
+            				maxOccurs="1" minOccurs="0">
+            			</xsd:element>
+            			<xsd:element name="enumName" type="xsd:string"
+            				maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="enumType" type="tns:EnumType"
+            				maxOccurs="1" minOccurs="1">
+            			</xsd:element>
+            			<xsd:element name="enumLayout"
+            				type="xsd:string" maxOccurs="unbounded" minOccurs="0">
+                            <xsd:annotation>
+                            	<xsd:documentation>layout columns that may be provided with language data</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="enumValues"
+            				type="tns:EnumDataType" maxOccurs="unbounded"
+            				minOccurs="0">
+            				<xsd:annotation>
+            					<xsd:documentation>
+            						values that will be in enumeration
+            					</xsd:documentation>
+            				</xsd:annotation>
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="createEnumExResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out" type="tns:CreateEnumExResponseType"></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+		
+            <xsd:simpleType name="EnumType">
+            	<xsd:restriction base="xsd:string">
+            		<xsd:enumeration value="none"></xsd:enumeration>
+            		<xsd:enumeration value="float"></xsd:enumeration>
+            		<xsd:enumeration value="integer"></xsd:enumeration>
+            		<xsd:enumeration value="string"></xsd:enumeration>
+            		<xsd:enumeration value="date"></xsd:enumeration>
+            		<xsd:enumeration value="bool"></xsd:enumeration>
+            		<xsd:enumeration value="unsupported"></xsd:enumeration>
+            	</xsd:restriction>
+            </xsd:simpleType>
+		
+            <xsd:complexType name="CreateEnumExResponseType">
+            	<xsd:sequence>
+            		<xsd:element name="operationResponse"
+            			type="tns:OperationResponseType" maxOccurs="1" minOccurs="1">
+                        <xsd:annotation>
+                        	<xsd:documentation>return value of this operation</xsd:documentation></xsd:annotation>
+            		</xsd:element>
+            		<xsd:element name="enumID" type="xsd:string" maxOccurs="1" minOccurs="0">
+            			<xsd:annotation>
+            				<xsd:documentation>id of created enum</xsd:documentation>
+            			</xsd:annotation></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="findLibraryID">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="session"
+            				type="tns:SessionType" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>session for this operation
+</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            			<xsd:element name="libraryName"
+            				type="xsd:string" maxOccurs="1" minOccurs="1">
+                            <xsd:annotation>
+                            	<xsd:documentation>name of library</xsd:documentation>
+                            </xsd:annotation>
+            			</xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+            <xsd:element name="findLibraryIDResponse">
+            	<xsd:complexType>
+            		<xsd:sequence>
+
+            			<xsd:element name="out" type="tns:FindIDResponseType">
+            				<xsd:annotation>
+            					<xsd:documentation>return value of this operation
+</xsd:documentation>
+            				</xsd:annotation></xsd:element>
+            		</xsd:sequence>
+            	</xsd:complexType>
+            </xsd:element>
+		
+            <xsd:complexType name="TableRowValuesListType">
+            	<xsd:sequence>
+            		<xsd:element name="rowValues" type="tns:TableRowValuesType" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+            	</xsd:sequence>
+            </xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="modifyPropertyRequest">
+		<wsdl:part name="parameters" element="tns:modifyProperty"/>
+	</wsdl:message>
+	<wsdl:message name="modifyPropertyResponse">
+		<wsdl:part name="parameters" element="tns:modifyPropertyResponse"/>
+	</wsdl:message>
+	<wsdl:message name="openSessionRequest">
+		<wsdl:part name="parameters" element="tns:openSession"/>
+	</wsdl:message>
+	<wsdl:message name="openSessionResponse">
+		<wsdl:part name="parameters" element="tns:openSessionResponse"/>
+	</wsdl:message>
+	<wsdl:message name="closeSessionRequest">
+		<wsdl:part name="parameters" element="tns:closeSession"/>
+	</wsdl:message>
+	<wsdl:message name="closeSessionResponse">
+		<wsdl:part name="parameters" element="tns:closeSessionResponse"/>
+	</wsdl:message>
+	<wsdl:message name="createProductModuleRequest">
+		<wsdl:part name="parameters" element="tns:createProductModule"/>
+	</wsdl:message>
+	<wsdl:message name="createProductModuleResponse">
+		<wsdl:part name="parameters" element="tns:createProductModuleResponse"/>
+	</wsdl:message>
+	<wsdl:message name="setModuleNameRequest">
+		<wsdl:part name="parameters" element="tns:setModuleName"/>
+	</wsdl:message>
+	<wsdl:message name="setModuleNameResponse">
+		<wsdl:part name="parameters" element="tns:setModuleNameResponse"/>
+	</wsdl:message>
+	<wsdl:message name="setGenerationNameRequest">
+		<wsdl:part name="parameters" element="tns:setGenerationName"/>
+	</wsdl:message>
+	<wsdl:message name="setGenerationNameResponse">
+		<wsdl:part name="parameters" element="tns:setGenerationNameResponse"/>
+	</wsdl:message>
+	<wsdl:message name="setAdaptorstageNameRequest">
+		<wsdl:part name="parameters" element="tns:setAdaptorstageName"/>
+	</wsdl:message>
+	<wsdl:message name="setAdaptorstageNameResponse">
+		<wsdl:part name="parameters" element="tns:setAdaptorstageNameResponse"/>
+	</wsdl:message>
+	<wsdl:message name="beginTransactionRequest">
+		<wsdl:part name="parameters" element="tns:beginTransaction"/>
+	</wsdl:message>
+	<wsdl:message name="beginTransactionResponse">
+		<wsdl:part name="parameters" element="tns:beginTransactionResponse"/>
+	</wsdl:message>
+	<wsdl:message name="rollbackTransactionRequest">
+		<wsdl:part name="parameters" element="tns:rollbackTransaction"/>
+	</wsdl:message>
+	<wsdl:message name="rollbackTransactionResponse">
+		<wsdl:part name="parameters" element="tns:rollbackTransactionResponse"/>
+	</wsdl:message>
+	<wsdl:message name="commitTransactionRequest">
+		<wsdl:part name="parameters" element="tns:commitTransaction"/>
+	</wsdl:message>
+	<wsdl:message name="commitTransactionResponse">
+		<wsdl:part name="parameters" element="tns:commitTransactionResponse"/>
+	</wsdl:message>
+	<wsdl:message name="closeTransactionRequest">
+		<wsdl:part name="parameters" element="tns:closeTransaction"/>
+	</wsdl:message>
+	<wsdl:message name="closeTransactionResponse">
+		<wsdl:part name="parameters" element="tns:closeTransactionResponse"/>
+	</wsdl:message>
+	<wsdl:message name="deleteProductModuleRequest">
+		<wsdl:part name="parameters" element="tns:deleteProductModule"/>
+	</wsdl:message>
+	<wsdl:message name="deleteProductModuleResponse">
+		<wsdl:part name="parameters" element="tns:deleteProductModuleResponse"/>
+	</wsdl:message>
+	<wsdl:message name="deleteGenerationRequest">
+		<wsdl:part name="parameters" element="tns:deleteGeneration"/>
+	</wsdl:message>
+	<wsdl:message name="deleteGenerationResponse">
+		<wsdl:part name="parameters" element="tns:deleteGenerationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="deleteAdaptorstageRequest">
+		<wsdl:part name="parameters" element="tns:deleteAdaptorstage"/>
+	</wsdl:message>
+	<wsdl:message name="deleteAdaptorstageResponse">
+		<wsdl:part name="parameters" element="tns:deleteAdaptorstageResponse"/>
+	</wsdl:message>
+	<wsdl:message name="createGenerationRequest">
+		<wsdl:part name="parameters" element="tns:createGeneration"/>
+	</wsdl:message>
+	<wsdl:message name="createGenerationResponse">
+		<wsdl:part name="parameters" element="tns:createGenerationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="createAdaptorstageRequest">
+		<wsdl:part name="parameters" element="tns:createAdaptorstage"/>
+	</wsdl:message>
+	<wsdl:message name="createAdaptorstageResponse">
+		<wsdl:part name="parameters" element="tns:createAdaptorstageResponse"/>
+	</wsdl:message>
+	<wsdl:message name="createRelationRequest">
+		<wsdl:part name="parameters" element="tns:createRelation"/>
+	</wsdl:message>
+	<wsdl:message name="createRelationResponse">
+		<wsdl:part name="parameters" element="tns:createRelationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="deleteRelationRequest">
+		<wsdl:part name="parameters" element="tns:deleteRelation"/>
+	</wsdl:message>
+	<wsdl:message name="deleteRelationResponse">
+		<wsdl:part name="parameters" element="tns:deleteRelationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="modifyAdaptorstageRequest">
+		<wsdl:part name="parameters" element="tns:modifyAdaptorstage"/>
+	</wsdl:message>
+	<wsdl:message name="modifyAdaptorstageResponse">
+		<wsdl:part name="parameters" element="tns:modifyAdaptorstageResponse"/>
+	</wsdl:message>
+	<wsdl:message name="modifyGenerationRequest">
+		<wsdl:part name="parameters" element="tns:modifyGeneration"/>
+	</wsdl:message>
+	<wsdl:message name="modifyGenerationResponse">
+		<wsdl:part name="parameters" element="tns:modifyGenerationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="modifyRelationRequest">
+		<wsdl:part name="parameters" element="tns:modifyRelation"/>
+	</wsdl:message>
+	<wsdl:message name="modifyRelationResponse">
+		<wsdl:part name="parameters" element="tns:modifyRelationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="findObjectIDRequest">
+		<wsdl:part name="parameters" element="tns:findObjectID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findObjectIDResponse">
+		<wsdl:part name="parameters" element="tns:findObjectIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findClassIDRequest">
+		<wsdl:part name="parameters" element="tns:findClassID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findClassIDResponse">
+		<wsdl:part name="parameters" element="tns:findClassIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findGenerationIDRequest">
+		<wsdl:part name="parameters" element="tns:findGenerationID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findGenerationIDResponse">
+		<wsdl:part name="parameters" element="tns:findGenerationIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findAdaptStageIDRequest">
+		<wsdl:part name="parameters" element="tns:findAdaptStageID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findAdaptStageIDResponse">
+		<wsdl:part name="parameters" element="tns:findAdaptStageIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findFolderIDRequest">
+		<wsdl:part name="parameters" element="tns:findFolderID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findFolderIDResponse">
+		<wsdl:part name="parameters" element="tns:findFolderIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findTemplateIDRequest">
+		<wsdl:part name="parameters" element="tns:findTemplateID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findTemplateIDResponse">
+		<wsdl:part name="parameters" element="tns:findTemplateIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findModelRelationIDRequest">
+		<wsdl:part name="parameters" element="tns:findModelRelationID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findModelRelationIDResponse">
+		<wsdl:part name="parameters" element="tns:findModelRelationIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getPropertyTypeRequest">
+		<wsdl:part name="parameters" element="tns:getPropertyType"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getPropertyTypeResponse">
+		<wsdl:part name="parameters" element="tns:getPropertyTypeResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getFolderPathRequest">
+		<wsdl:part name="parameters" element="tns:getFolderPath"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getFolderPathResponse">
+		<wsdl:part name="parameters" element="tns:getFolderPathResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getPropertyRestrictionRequest">
+		<wsdl:part name="parameters" element="tns:getPropertyRestriction"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getPropertyRestrictionResponse">
+		<wsdl:part name="parameters" element="tns:getPropertyRestrictionResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyPropertyRestrictionRequest">
+		<wsdl:part name="parameters" element="tns:modifyPropertyRestriction"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyPropertyRestrictionResponse">
+		<wsdl:part name="parameters" element="tns:modifyPropertyRestrictionResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyPropertyListRequest">
+		<wsdl:part name="parameters" element="tns:modifyPropertyList"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyPropertyListResponse">
+		<wsdl:part name="parameters" element="tns:modifyPropertyListResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createProductModuleExRequest">
+		<wsdl:part name="parameters" element="tns:createProductModuleEx"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createProductModuleExResponse">
+		<wsdl:part name="parameters" element="tns:createProductModuleExResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createAdaptorStageExRequest">
+		<wsdl:part name="parameters" element="tns:createAdaptorStageEx"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createAdaptorStageExResponse">
+		<wsdl:part name="parameters" element="tns:createAdaptorStageExResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteProductModuleByObjectKeyRequest">
+		<wsdl:part name="parameters" element="tns:deleteProductModuleByObjectKey"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteProductModuleByObjectKeyResponse">
+		<wsdl:part name="parameters" element="tns:deleteProductModuleByObjectKeyResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteAdaptorStageByObjectKeyRequest">
+		<wsdl:part name="parameters" element="tns:deleteAdaptorStageByObjectKey"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteAdaptorStageByObjectKeyResponse">
+		<wsdl:part name="parameters" element="tns:deleteAdaptorStageByObjectKeyResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createRelationsRequest">
+		<wsdl:part name="parameters" element="tns:createRelations"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createRelationsResponse">
+		<wsdl:part name="parameters" element="tns:createRelationsResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteRelationsRequest">
+		<wsdl:part name="parameters" element="tns:deleteRelations"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteRelationsResponse">
+		<wsdl:part name="parameters" element="tns:deleteRelationsResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyTableDataRequest">
+		<wsdl:part name="parameters" element="tns:modifyTableData"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyTableDataResponse">
+		<wsdl:part name="parameters" element="tns:modifyTableDataResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyEnumerationRequest">
+		<wsdl:part name="parameters" element="tns:modifyEnumeration"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyEnumerationResponse">
+		<wsdl:part name="parameters" element="tns:modifyEnumerationResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getTableLayoutRequest">
+		<wsdl:part name="parameters" element="tns:getTableLayout"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getTableLayoutResponse">
+		<wsdl:part name="parameters" element="tns:getTableLayoutResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getTableDataRequest">
+		<wsdl:part name="parameters" element="tns:getTableData"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getTableDataResponse">
+		<wsdl:part name="parameters" element="tns:getTableDataResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyPropertyTagRequest">
+		<wsdl:part name="parameters" element="tns:modifyPropertyTag"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="modifyPropertyTagResponse">
+		<wsdl:part name="parameters" element="tns:modifyPropertyTagResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createTableExRequest">
+		<wsdl:part name="parameters" element="tns:createTableEx"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createTableExResponse">
+		<wsdl:part name="parameters" element="tns:createTableExResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createEnumExRequest">
+		<wsdl:part name="parameters" element="tns:createEnumEx"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createEnumExResponse">
+		<wsdl:part name="parameters" element="tns:createEnumExResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findLibraryIDRequest">
+		<wsdl:part name="parameters" element="tns:findLibraryID"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="findLibraryIDResponse">
+		<wsdl:part name="parameters" element="tns:findLibraryIDResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="PMDesignerServices">
+		<wsdl:operation name="modifyProperty">
+			<wsdl:documentation>modify a property value</wsdl:documentation>
+			<wsdl:input message="tns:modifyPropertyRequest"/>
+			<wsdl:output message="tns:modifyPropertyResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="openSession">
+			<wsdl:documentation>open a new session</wsdl:documentation>
+			<wsdl:input message="tns:openSessionRequest"/>
+			<wsdl:output message="tns:openSessionResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="closeSession">
+			<wsdl:documentation>close a session</wsdl:documentation>
+			<wsdl:input message="tns:closeSessionRequest"/>
+			<wsdl:output message="tns:closeSessionResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="createProductModule">
+			<wsdl:documentation>create a new product module</wsdl:documentation>
+			<wsdl:input message="tns:createProductModuleRequest"/>
+			<wsdl:output message="tns:createProductModuleResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="setModuleName">
+			<wsdl:documentation>set the name of product module</wsdl:documentation>
+			<wsdl:input message="tns:setModuleNameRequest"/>
+			<wsdl:output message="tns:setModuleNameResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="setGenerationName">
+			<wsdl:documentation>set the name of generation</wsdl:documentation>
+			<wsdl:input message="tns:setGenerationNameRequest"/>
+			<wsdl:output message="tns:setGenerationNameResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="setAdaptorstageName">
+			<wsdl:documentation>set the name of adaptorstage</wsdl:documentation>
+			<wsdl:input message="tns:setAdaptorstageNameRequest"/>
+			<wsdl:output message="tns:setAdaptorstageNameResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="beginTransaction">
+			<wsdl:documentation>begi a transaction</wsdl:documentation>
+			<wsdl:input message="tns:beginTransactionRequest"/>
+			<wsdl:output message="tns:beginTransactionResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="rollbackTransaction">
+			<wsdl:documentation>rollback a transaction</wsdl:documentation>
+			<wsdl:input message="tns:rollbackTransactionRequest"/>
+			<wsdl:output message="tns:rollbackTransactionResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="commitTransaction">
+			<wsdl:documentation>commit a transaction</wsdl:documentation>
+			<wsdl:input message="tns:commitTransactionRequest"/>
+			<wsdl:output message="tns:commitTransactionResponse"/>
+		</wsdl:operation>
+
+		<wsdl:operation name="deleteProductModule">
+			<wsdl:documentation>delete a product module</wsdl:documentation>
+			<wsdl:input message="tns:deleteProductModuleRequest"/>
+			<wsdl:output message="tns:deleteProductModuleResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="createGeneration">
+			<wsdl:documentation>create a new generation</wsdl:documentation>
+			<wsdl:input message="tns:createGenerationRequest"/>
+			<wsdl:output message="tns:createGenerationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="createAdaptorstage">
+			<wsdl:documentation>create a new adaptorstage</wsdl:documentation>
+			<wsdl:input message="tns:createAdaptorstageRequest"/>
+			<wsdl:output message="tns:createAdaptorstageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="createRelation">
+			<wsdl:documentation>create a relation</wsdl:documentation>
+			<wsdl:input message="tns:createRelationRequest"/>
+			<wsdl:output message="tns:createRelationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="deleteRelation">
+			<wsdl:documentation>delete a relation</wsdl:documentation>
+			<wsdl:input message="tns:deleteRelationRequest"/>
+			<wsdl:output message="tns:deleteRelationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="modifyAdaptorstage">
+			<wsdl:documentation>modify an adaptorstage</wsdl:documentation>
+			<wsdl:input message="tns:modifyAdaptorstageRequest"/>
+			<wsdl:output message="tns:modifyAdaptorstageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="modifyGeneration">
+			<wsdl:documentation>modify a generation</wsdl:documentation>
+			<wsdl:input message="tns:modifyGenerationRequest"/>
+			<wsdl:output message="tns:modifyGenerationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="deleteGeneration">
+			<wsdl:documentation>delete a generation</wsdl:documentation>
+			<wsdl:input message="tns:deleteGenerationRequest"/>
+			<wsdl:output message="tns:deleteGenerationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="deleteAdaptorstage">
+			<wsdl:documentation>delete an adaptorstage</wsdl:documentation>
+			<wsdl:input message="tns:deleteAdaptorstageRequest"/>
+			<wsdl:output message="tns:deleteAdaptorstageResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="modifyRelation">
+      <wsdl:documentation>modify a relation</wsdl:documentation>
+			<wsdl:input message="tns:modifyRelationRequest"/>
+			<wsdl:output message="tns:modifyRelationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="findObjectID">
+			<wsdl:documentation>find an identifer of product module</wsdl:documentation>
+			<wsdl:input message="tns:findObjectIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findObjectIDResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findClassID">
+			<wsdl:documentation>find an identifer of class</wsdl:documentation>
+			<wsdl:input message="tns:findClassIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findClassIDResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findGenerationID">
+			<wsdl:documentation>find an identifer of generation
+			</wsdl:documentation>
+			<wsdl:input message="tns:findGenerationIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findGenerationIDResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findAdaptStageID">
+			<wsdl:documentation>find an identifer of adapter stage 
+			</wsdl:documentation>
+			<wsdl:input message="tns:findAdaptStageIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findAdaptStageIDResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findFolderID">
+			<wsdl:documentation>find an identifer of product module folder 
+			</wsdl:documentation>
+			<wsdl:input message="tns:findFolderIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findFolderIDResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findTemplateID">
+			<wsdl:documentation>find an identifer of product module template 
+			</wsdl:documentation>
+			<wsdl:input message="tns:findTemplateIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findTemplateIDResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findModelRelationID">
+			<wsdl:documentation>find an identifer of model relation between two classes 
+			</wsdl:documentation>
+			<wsdl:input message="tns:findModelRelationIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findModelRelationIDResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getPropertyType">
+			<wsdl:documentation>get a type of property (format and dimension) 
+			</wsdl:documentation>
+			<wsdl:input message="tns:getPropertyTypeRequest"></wsdl:input>
+			<wsdl:output message="tns:getPropertyTypeResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getFolderPath">
+			<wsdl:documentation>get relative path from base folder to given template</wsdl:documentation>
+			<wsdl:input message="tns:getFolderPathRequest"></wsdl:input>
+			<wsdl:output message="tns:getFolderPathResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getPropertyRestriction">
+			<wsdl:documentation>get restriction of the given property</wsdl:documentation>
+			<wsdl:input message="tns:getPropertyRestrictionRequest"></wsdl:input>
+			<wsdl:output message="tns:getPropertyRestrictionResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyPropertyRestriction">
+			<wsdl:documentation>modify restriction of the given property</wsdl:documentation>
+			<wsdl:input message="tns:modifyPropertyRestrictionRequest"></wsdl:input>
+			<wsdl:output message="tns:modifyPropertyRestrictionResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyPropertyList">
+			<wsdl:documentation>modify values and/or restrictions of a list of properties 
+optional (flag): replace existing properties 
+
+</wsdl:documentation>
+			<wsdl:input message="tns:modifyPropertyListRequest"></wsdl:input>
+			<wsdl:output message="tns:modifyPropertyListResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createProductModuleEx">
+			<wsdl:documentation>create a product module and add a given list of properties; 
+only properties existing in template get overwritten and filled with this new values
+</wsdl:documentation>
+			<wsdl:input message="tns:createProductModuleExRequest"></wsdl:input>
+			<wsdl:output message="tns:createProductModuleExResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createAdaptorStageEx">
+			<wsdl:documentation>create an adapter stage and add a given list of properties
+on demand create missing generation and/or product module;
+only properties existing in template get overwritten and filled with this new values
+</wsdl:documentation>
+			<wsdl:input message="tns:createAdaptorStageExRequest"></wsdl:input>
+			<wsdl:output message="tns:createAdaptorStageExResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteProductModuleByObjectKey">
+			<wsdl:documentation>delete a product module specified by object key 
+</wsdl:documentation>
+			<wsdl:input message="tns:deleteProductModuleByObjectKeyRequest"></wsdl:input>
+			<wsdl:output message="tns:deleteProductModuleByObjectKeyResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteAdaptorStageByObjectKey">
+			<wsdl:documentation>delete an adapter stage specified by object key 
+on demand (if it is the last one) delete generation and/or product module 
+</wsdl:documentation>
+			<wsdl:input message="tns:deleteAdaptorStageByObjectKeyRequest"></wsdl:input>
+			<wsdl:output message="tns:deleteAdaptorStageByObjectKeyResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createRelations">
+			<wsdl:documentation>create relations on a product module specified by object key
+optional (flag): replace existing relations 
+</wsdl:documentation>
+			<wsdl:input message="tns:createRelationsRequest"></wsdl:input>
+			<wsdl:output message="tns:createRelationsResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteRelations">
+			<wsdl:documentation>delete relation on product module specified by object key 
+</wsdl:documentation>
+			<wsdl:input message="tns:deleteRelationsRequest"></wsdl:input>
+			<wsdl:output message="tns:deleteRelationsResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyTableData">
+			<wsdl:documentation>modify an existing internal table, insert, update and delete given lists of values</wsdl:documentation>
+			<wsdl:input message="tns:modifyTableDataRequest"></wsdl:input>
+			<wsdl:output message="tns:modifyTableDataResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyEnumeration">
+			<wsdl:documentation>modify an existing enumeration, insert, update and delete given lists of values</wsdl:documentation>
+			<wsdl:input message="tns:modifyEnumerationRequest"></wsdl:input>
+			<wsdl:output message="tns:modifyEnumerationResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTableLayout">
+			<wsdl:documentation>request information about a tables logical layout</wsdl:documentation>
+			<wsdl:input message="tns:getTableLayoutRequest"></wsdl:input>
+			<wsdl:output message="tns:getTableLayoutResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTableData">
+			<wsdl:documentation>request information about a tables logical layout and data</wsdl:documentation>
+			<wsdl:input message="tns:getTableDataRequest"></wsdl:input>
+			<wsdl:output message="tns:getTableDataResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyPropertyTag">
+			<wsdl:documentation>modify a property tag</wsdl:documentation>
+			<wsdl:input message="tns:modifyPropertyTagRequest"></wsdl:input>
+			<wsdl:output message="tns:modifyPropertyTagResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createTableEx">
+			<wsdl:documentation>create an internal table, insert layout and data
+</wsdl:documentation>
+			<wsdl:input message="tns:createTableExRequest"></wsdl:input>
+			<wsdl:output message="tns:createTableExResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createEnumEx">
+			<wsdl:documentation>create an enumeration insert typ and data</wsdl:documentation>
+			<wsdl:input message="tns:createEnumExRequest"></wsdl:input>
+			<wsdl:output message="tns:createEnumExResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findLibraryID">
+			<wsdl:documentation>find an identifer of library</wsdl:documentation>
+			<wsdl:input message="tns:findLibraryIDRequest"></wsdl:input>
+			<wsdl:output message="tns:findLibraryIDResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="PMDesignerServices"
+		type="tns:PMDesignerServices">
+
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="modifyProperty">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyProperty" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="openSession">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/openSession" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="closeSession">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/closeSession" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createProductModule">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createProductModule" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="setModuleName">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/setModuleName" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="setGenerationName">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/setGenerationName" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="setAdaptorstageName">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/setAdaptorstageName" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="beginTransaction">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/beginTransaction" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="rollbackTransaction">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/rollbackTransaction" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="commitTransaction">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/commitTransaction" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="deleteProductModule">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/deleteProductModule" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createGeneration">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createGeneration" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createAdaptorstage">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createAdaptorstage" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createRelation">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createRelation" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteRelation">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/deleteRelation" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyAdaptorstage">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyAdaptorstage" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyGeneration">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyGeneration" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteGeneration">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/deleteGeneration" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteAdaptorstage">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/deleteAdaptorstage" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyRelation">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyRelation" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findObjectID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findObjectID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findClassID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findClassID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findGenerationID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findGenerationID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findAdaptStageID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findAdaptStageID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findFolderID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findFolderID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findTemplateID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findTemplateID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findModelRelationID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findModelRelationID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getPropertyType">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/getPropertyType" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getFolderPath">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/getFolderPath" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getPropertyRestriction">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/getPropertyRestriction" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyPropertyRestriction">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyPropertyRestriction" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyPropertyList">
+
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyPropertyList" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createProductModuleEx">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createProductModuleEx" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createAdaptorStageEx">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createAdaptorStageEx" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteProductModuleByObjectKey">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/deleteProductModuleByObjectKey" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteAdaptorStageByObjectKey">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/deleteAdaptorStageByObjectKey" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createRelations">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createRelations" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteRelations">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/deleteRelations" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyTableData">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyTableData" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyEnumeration">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyEnumeration" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTableLayout">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/getTableLayout" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTableData">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/getTableData" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="modifyPropertyTag">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/modifyPropertyTag" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createTableEx">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createTableEx" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createEnumEx">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/createEnumEx" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="findLibraryID">
+
+			<soap:operation
+				soapAction="urn:de:msg:pm:designer:services/findLibraryID" />
+			<wsdl:input>
+
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="PMDesignerServices">
+		<wsdl:port name="PMDesignerServices" binding="tns:PMDesignerServices">
+			<soap:address location="http://localhost:20044/"/>
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>
