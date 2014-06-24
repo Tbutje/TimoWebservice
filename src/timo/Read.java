@@ -36,12 +36,12 @@ public class Read {
 
 	private List<List<String>> data = null;
 
-	private String file_location;
+	private String inputFile;
 
-	public List<List<String>> readFile(String file_type, String file_location) {
+	public List<List<String>> readFile(String file_type, String inputFile) {
 		// TODO: error handling nu niet goed als je iets randoms invuld;
 		// misschien enum van maken?
-		this.file_location = file_location;
+		this.inputFile = inputFile;
 
 		switch (file_type) {
 
@@ -62,15 +62,15 @@ public class Read {
 		try {
 
 			FileInputStream file = new FileInputStream(new File(
-					this.file_location));
+					this.inputFile));
 
 			// xls and xlsx switch
-			if (GetFileExtension(file_location).equalsIgnoreCase("xls")) {
+			if (GetFileExtension(inputFile).equalsIgnoreCase("xls")) {
 				// xls
 				HSSFWorkbook workbookHssf = new HSSFWorkbook(file);
 				sheet = workbookHssf.getSheetAt(0);
 
-			} else if (GetFileExtension(file_location).equalsIgnoreCase("xlsx")) {
+			} else if (GetFileExtension(inputFile).equalsIgnoreCase("xlsx")) {
 				// xlsx
 				XSSFWorkbook workbookXssf = new XSSFWorkbook(file);
 				sheet = workbookXssf.getSheetAt(0);
@@ -120,7 +120,7 @@ public class Read {
 
 	private void readCsv(){
 		this.data = new ArrayList<List<String>>();
-		String csvFile = this.file_location;
+		String csvFile = this.inputFile;
 		BufferedReader br = null;
 		String line = "";
 		String cvsSplitBy = ";";

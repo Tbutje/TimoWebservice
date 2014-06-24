@@ -13,12 +13,18 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
  
 
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
  
 public class WriteXMLFile {
+	
+	private String OutputFile;
+	
+	WriteXMLFile(String OutputFile){
+		this.OutputFile = OutputFile;
+	}
+	
  
 	public void write(String[] columnNames, String[][] rowValues) {
 
@@ -51,14 +57,9 @@ public class WriteXMLFile {
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("D:\\file.xml"));
- 
-		// Output to console for testing
-		//StreamResult result = new StreamResult(System.out);
- 
+		StreamResult result = new StreamResult(new File(OutputFile));
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.transform(source, result);
- 
  
 	  } catch (ParserConfigurationException pce) {
 		pce.printStackTrace();
