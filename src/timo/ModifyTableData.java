@@ -30,15 +30,11 @@ public class ModifyTableData {
 
 	// tableModifyRowType(keyCells, valueCells) // UPDATE ROWS
 	// services.designer.pm.msg.de.TableRowListType keyCells: // de key voor een
-	// cell?
-	// waarom dan listype weet ik ook niet, want deze heeft en cloumn en row
-	// informatie
+	// cell? waarom dan listype weet ik ook niet, want deze heeft en cloumn en row informatie
 	// Mogelijk is de key de combinatie van huidige column names[] en values[][]
-	// Maar dan zou er eerst een read actie van de database uitgevoegd moeten
-	// worden
+	// Maar dan zou er eerst een read actie van de database uitgevoegd moeten worden
 	// Om te kijken wat de huidige values zijn.
-	// services.designer.pm.msg.de.TableRowListType valueCells: // de values
-	// voor de cellen
+	// services.designer.pm.msg.de.TableRowListType valueCells: de values voor de cellen
 
 	// in theorie zou je ook rows kunnen deleten, adden en updaten in 1
 	// statement, maar dat lijkt me niet gewenst
