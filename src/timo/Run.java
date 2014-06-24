@@ -18,7 +18,6 @@ public class Run {
 
 		// init logger
 		try {
-			// This block configure the logger with handler and formatter
 			fh = new FileHandler("D:/TimoLogFile.log", true);
 			logger.addHandler(fh);
 			SimpleFormatter formatter = new SimpleFormatter();

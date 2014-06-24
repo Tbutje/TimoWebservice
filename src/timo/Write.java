@@ -37,17 +37,16 @@ public class Write {
 
 		// init logger
 		try {
-			// This block configure the logger with handler and formatter
 			fh = new FileHandler("D:/TimoLogFile.log", true);
 			logger.addHandler(fh);
 			SimpleFormatter formatter = new SimpleFormatter();
 			fh.setFormatter(formatter);
-
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	
 		switch (outputType) {
 		case "msg.PM":
