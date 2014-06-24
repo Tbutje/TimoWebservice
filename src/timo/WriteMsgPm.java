@@ -1,6 +1,6 @@
 package timo;
 
-public class ModifyTableData {
+public class WriteMsgPm {
 
 	private Boolean release = true; // als deze true is dat maakt hij de
 										// connectie met de actual stub
