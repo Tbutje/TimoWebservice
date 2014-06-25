@@ -47,4 +47,14 @@
     <servlet-name>AdminServlet</servlet-name>
     <url-pattern>/servlet/AdminServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RunServlet</display-name>
+    <servlet-name>RunServlet</servlet-name>
+    <servlet-class>timo.RunServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RunServlet</servlet-name>
+    <url-pattern>/RunServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

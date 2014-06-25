@@ -2,6 +2,45 @@
     <wb-module deploy-name="TimoWebservice">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="stax-api-1.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/ooxml-lib/stax-api-1.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-scratchpad-3.10-FINAL-20140208.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/poi-scratchpad-3.10-FINAL-20140208.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-ooxml-schemas-3.10-FINAL-20140208.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/poi-ooxml-schemas-3.10-FINAL-20140208.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-codec-1.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/lib/commons-codec-1.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-examples-3.10-FINAL-20140208.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/poi-examples-3.10-FINAL-20140208.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="junit-4.11.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/lib/junit-4.11.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="log4j-1.2.13.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/lib/log4j-1.2.13.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-excelant-3.10-FINAL-20140208.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/poi-excelant-3.10-FINAL-20140208.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="dom4j-1.6.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/ooxml-lib/dom4j-1.6.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="xmlbeans-2.3.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/ooxml-lib/xmlbeans-2.3.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-3.10-FINAL-20140208.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/poi-3.10-FINAL-20140208.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="poi-ooxml-3.10-FINAL-20140208.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/poi-ooxml-3.10-FINAL-20140208.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/D:/ass/Eclipse/Software/Apache POI - 3.10/lib/commons-logging-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="TimoWebservice"/>
         <property name="java-output-path" value="/TimoWebservice/build/classes"/>
     </wb-module>
