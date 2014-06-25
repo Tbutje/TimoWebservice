@@ -10,3 +10,13 @@
 {
     font-size:30pt;
 }
+
+.error
+{
+	color:red;
+}
+
+.confirmed
+{
+	color:green;
+}

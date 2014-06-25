@@ -1,5 +1,6 @@
 package timo;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 public class RunServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private String inputType; // xls, xlsx, csv
 	private String inputFile; // D:\\Premium-Table-Example.xlsx // ;
 
 	// D:\\simpel.xls ;// "D:\\simpel.csv"
@@ -64,16 +64,26 @@ public class RunServlet extends HttpServlet {
 
 		outputType = request.getParameter("outputType");
 	
-
 		outputFile = request.getParameter("outputFile");
-		if (!validator.checkInputExt(inputFile)) {
-			errors.put("inputFile", "inputFile.");
+		
+		// validate extension
+		if (!validator.checkOutputExt(outputFile)) {
+			errors.put("outputFile", "Extension must be .XML");
 			valid = false;
 		}
 
+		// validate file location
+		if(!validator.isValidFileLoc(outputFile)){
+			errors.put("outputFile", "Output location does not exist");
+			valid = false;
+			
+		}
+		
+		
 		if (valid) {
 			Run run = new Run();
 			run.doStuff(inputFile, outputType, outputFile);
+			errors.put("writeSucces", "succesfully written to file");
 		}
 
 		// error handling
@@ -87,9 +97,6 @@ public class RunServlet extends HttpServlet {
 
 	}
 
-	public String getInputType() {
-		return inputType;
-	}
 
 	public String getInputFile() {
 		return inputFile;

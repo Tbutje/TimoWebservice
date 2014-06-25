@@ -41,7 +41,7 @@
 			<tr>
 				<td>inputFile</td>
 				<td><input type="file" name="inputFile"
-					value="${param.inputFile}" accept=".csv" /> <span class="error">${errors.inputFile}</span>
+					value="${param.inputFile}" accept=".csv" /> <span class="error" >${errors.inputFile}</span>
 				</td>
 			</tr>
 			<tr>
@@ -59,7 +59,8 @@
 			</tr>
 		</table>
 
-		<input type="submit" value="Create File">
+		<input type="submit" value="Create File"> <br>
+		<span class="confirmed">${errors.writeSucces}</span></td>
 
 	</form>
 
