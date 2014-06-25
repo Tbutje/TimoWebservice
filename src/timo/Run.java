@@ -32,6 +32,7 @@ public class Run {
 		Read inlezen = new Read();
 		List<List<String>> data = inlezen.readFile(inputFile);
 		
+		
 		// convert naar generic format met headers
 		ConvertInputFormat convertInputFormat = new ConvertInputFormat(data);
 		String[] columnNames = convertInputFormat.getColumnNames();
@@ -68,7 +69,7 @@ public class Run {
 		Run run = new Run();
 		
 	//	String inputType = "csv"; // xls, xlsx, csv
-		String inputFile = "D:\\simepl.xls"; // D:\\Premium-Table-Example.xlsx
+		String inputFile = "D:\\simpel.csv"; // D:\\Premium-Table-Example.xlsx
 													// ; D:\\simpel.xls ;
 													// "D:\\simpel.csv"
 		
