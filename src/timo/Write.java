@@ -37,7 +37,7 @@ public class Write {
 
 		// init logger
 		try {
-			fh = new FileHandler("D:/TimoLogFile.log", true);
+			fh = new FileHandler("D:/TimoLogFile.log");
 			logger.addHandler(fh);
 			SimpleFormatter formatter = new SimpleFormatter();
 			fh.setFormatter(formatter);

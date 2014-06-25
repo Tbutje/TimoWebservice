@@ -14,11 +14,11 @@ public class Run {
 	Logger logger = Logger.getLogger(Run.class.getName());
 	FileHandler fh;
 
-	public void doStuff(String inputType, String inputFile, String outputType, String outputFile ) {
+	public void doStuff(String inputFile, String outputType, String outputFile ) {
 
 		// init logger
 		try {
-			fh = new FileHandler("D:/TimoLogFile.log", true);
+			fh = new FileHandler("D:/TimoLogFile.log");
 			logger.addHandler(fh);
 			SimpleFormatter formatter = new SimpleFormatter();
 			fh.setFormatter(formatter);
@@ -30,7 +30,7 @@ public class Run {
 
 		// lees bestandje in
 		Read inlezen = new Read();
-		List<List<String>> data = inlezen.readFile(inputType, inputFile);
+		List<List<String>> data = inlezen.readFile(inputFile);
 		
 		// convert naar generic format met headers
 		ConvertInputFormat convertInputFormat = new ConvertInputFormat(data);
@@ -67,14 +67,14 @@ public class Run {
 	public static void main(String[] args) {
 		Run run = new Run();
 		
-		String inputType = "csv"; // xls, xlsx, csv
-		String inputFile = "D:\\simpel.csv"; // D:\\Premium-Table-Example.xlsx
+	//	String inputType = "csv"; // xls, xlsx, csv
+		String inputFile = "D:\\simepl.xls"; // D:\\Premium-Table-Example.xlsx
 													// ; D:\\simpel.xls ;
 													// "D:\\simpel.csv"
 		
 		String outputType = "XML"; // msg.PM, DMBS, XML
 		String outputFile = "D:\\file.xml"; // XML is enige dat hier iets mee doet
-		run.doStuff(inputType, inputFile, outputType, outputFile);
+		run.doStuff(inputFile, outputType, outputFile);
 
 	}
 
