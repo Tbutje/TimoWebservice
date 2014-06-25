@@ -34,17 +34,43 @@ public class ValidateInput {
 		return false;
 	}
 
+	public Boolean checkColumnNames(String[] columnNames) {
+		// check if input is within allowed file extensions
+
+		String[] reqColNames = { "VALID_FROM", "VALID_TO", "OBJECT_TYPE",
+				"CODE" };
+
+		for (String reqname : reqColNames) {
+			Boolean match = new Boolean(false);
+
+			for (String name : columnNames) {
+				if (reqname.equals(name)) {
+					match = true;
+					break;
+				}
+			}
+			// if any of the reqColnames is not found then return false
+			if(!match){
+				return false;
+			}
+
+		}
+
+		return true;
+	}
+
 	public Boolean isValidFileLoc(String filename) {
-		
+
 		// String fname = "";
 		String ext;
 		int mid = filename.lastIndexOf("\\");
-		if(mid < 0){
-			return false; // dit gebuert er als er uberhaupt een \ in de naam zit
+		if (mid < 0) {
+			return false; // dit gebuert er als er uberhaupt een \ in de naam
+							// zit
 		}
 		ext = filename.substring(0, mid);
 		File f = new File(ext);
-		
+
 		return f.isDirectory();
 
 	}

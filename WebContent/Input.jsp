@@ -14,11 +14,11 @@
 		var txtField = document.getElementById('outfile');
 		if (selMenu.value == 'XML')
 			txtField.disabled = false;
-		else{
+		else {
 			txtField.disabled = true;
 			txtField.value = "";
 		}
-			
+
 	}
 </script>
 
@@ -41,27 +41,47 @@
 			<tr>
 				<td>inputFile</td>
 				<td><input type="file" name="inputFile"
-					value="${param.inputFile}" accept=".csv" /> <span class="error" >${errors.inputFile}</span>
-				</td>
+					value="${param.inputFile}" accept=".csv" /></td>
+				<td><span class="error">${errors.inputFile}</span></td>
 			</tr>
 			<tr>
 				<td>outputType</td>
-				<td><select name="outputType" id="outmenu" onChange="findselected()">
+				<td><select name="outputType" id="outmenu"
+					onChange="findselected()">
 						<option value="XML">XML</option>
 						<option value="msg.PM">msg.PM</option>
 						<option value="DMBS">DMBS</option>
-				</select> <span class="error">${errors.outputType}</span></td>
+				</select></td>
+				<td><span class="error">${errors.outputType}</span></td>
 			</tr>
 			<tr>
 				<td>outputFile (Only XML)</td>
-				<td><input type="text" name="outputFile" id = "outfile"
-					value="${param.outputFile}" /> <span class="error">${errors.outputFile}</span></td>
+				<td><input type="text" name="outputFile" id="outfile"
+					value="${param.outputFile}" /></td>
+				<td><span class="error">${errors.outputFile}</span></td>
 			</tr>
 		</table>
 
-		<input type="submit" value="Create File"> <br>
-		<span class="confirmed">${errors.writeSucces}</span></td>
+		<input type="submit" value="Create File"> <br> <span
+			class="confirmed">${errors.writeSucces}</span>
 
 	</form>
+	<%
+	try{
+		String[][] rowValues = (String[][]) request.getAttribute("rowValues");
+		String[] columnNames = (String[]) request.getAttribute("columnNames");
+
+		for (int rowIdx = 0; rowIdx < rowValues.length; rowIdx++) {
+
+			for (int colIdx = 0; colIdx < columnNames.length; colIdx++) {
+				out.println(rowValues[rowIdx][colIdx]);
+			}
+		}
+	}catch(Exception ex){
+	}
+	
+		
+	%>
+
 
 </BODY>

@@ -69,6 +69,8 @@ public class Write {
 
 			// maak de call
 			modifyTableData.addRows(tableRowListType);
+			
+			break;
 
 		case "DBMS":
 			try {
@@ -79,10 +81,12 @@ public class Write {
 				logger.log(Level.SEVERE, "Error {0}", ex);
 				System.out.println(ex.getMessage());
 			}
+			break;
 
 		case "XML":
 			WriteXMLFile xlmwriter = new WriteXMLFile(OutputFile);
 			xlmwriter.write(columnNames, rowValues);
+			break;
 
 		}
 	}
