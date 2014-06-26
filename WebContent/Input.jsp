@@ -40,8 +40,8 @@
 		<table >
 			<tr>
 				<td>inputFile</td>
-				<td><input type="file" name="inputFile"
-					value="${param.inputFile}" accept=".csv" /></td>
+				<td><input type="file" name="inputFile" 
+					value="${param.inputFile}" accept=".csv, .xlsx, .xls, .xml" /></td>
 				<td><span class="error">${errors.inputFile}</span></td>
 			</tr>
 			<tr>
@@ -99,7 +99,4 @@
 			}
 		%>
 	
-
-
-
 </BODY>

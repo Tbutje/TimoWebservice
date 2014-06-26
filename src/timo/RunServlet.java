@@ -16,7 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class RunServlet
+ * This servlet is called by Input.jsp to process input and send a response back
+ * This servlet also performs the input validation which adds alot of code. But
+ * I wanted to give specific feedback to the gui what was wrong and therefore
+ * this seemed to be the best method
+ * 
+ * @author Timo Koole
  */
 public class RunServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +38,6 @@ public class RunServlet extends HttpServlet {
 	 */
 	public RunServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -42,7 +46,7 @@ public class RunServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Not using this call
 
 	}
 
@@ -57,14 +61,17 @@ public class RunServlet extends HttpServlet {
 		SimpleFormatter formatterTxt = new SimpleFormatter();
 		Logger logger = Logger.getLogger("timologger");
 		try {
-			FileHandler handler = new FileHandler("d:\\timologger.log", true);
+			FileHandler handler = new FileHandler("d:\\timologgui.log");
 			handler.setFormatter(formatterTxt);
 			logger.addHandler(handler);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
+		// this map is used for all the errors
 		Map<String, String> errors = new HashMap<String, String>();
+
+		// the validator is used for all the validation checks
 		ValidateInput validator = new ValidateInput();
 		Boolean valid = true; // this will change to false if any input variable
 								// is not valid
@@ -81,7 +88,6 @@ public class RunServlet extends HttpServlet {
 		outputType = request.getParameter("outputType");
 
 		outputFile = request.getParameter("outputFile");
-
 		// validate extension
 		if (outputType.equals("XML")) {
 			if (!validator.checkOutputExt(outputFile)) {
@@ -110,14 +116,38 @@ public class RunServlet extends HttpServlet {
 				logger.severe(ex.getMessage());
 
 			}
-			columnNames = reader.getColumnNames();
-			rowValues = reader.getRowValues();
 
-			// Validate data
-			if (!validator.checkColumnNames(columnNames)) {
-				errors.put("inputFile",
-						"Input file does not have required column names");
-				valid = false;
+			// *****Validate data
+			if (valid) {
+				columnNames = reader.getColumnNames();
+				rowValues = reader.getRowValues();
+
+				// Validate column names
+				if (!validator.checkColumnNames(columnNames)) {
+					errors.put("inputFile",
+							"Input file does not have required column names");
+					valid = false;
+				}
+				// validate data type OBJECT_TYPE column
+				if (!validator.isTypeValidObject(columnNames, rowValues)) {
+					errors.put("inputFile",
+							"Data format of column OBJECT_TYPE is not correct");
+					valid = false;
+				}
+
+				// validate VALID_FROM column
+				if (!validator.isTypeValidValidFrom(columnNames, rowValues)) {
+					errors.put("inputFile",
+							"Data format of column VALID_FROM is not correct");
+					valid = false;
+				}
+
+				// validate VALID_TO column
+				if (!validator.isTypeValidValidTo(columnNames, rowValues)) {
+					errors.put("inputFile",
+							"Data format of column VALID_TO is not correct");
+					valid = false;
+				}
 			}
 
 			// write data
@@ -135,10 +165,9 @@ public class RunServlet extends HttpServlet {
 					logger.severe(ex.getMessage());
 				}
 			}
-
 		}
 
-		// error handling
+		// Sens errors to browser
 		request.setAttribute("errors", errors);
 
 		// return to page
@@ -168,5 +197,4 @@ public class RunServlet extends HttpServlet {
 	public String[][] getRowValues() {
 		return rowValues;
 	}
-
 }

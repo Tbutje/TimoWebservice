@@ -1,27 +1,28 @@
 package timo;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import org.apache.axis.AxisFault;
-
+/**
+ * This class is NOT used by other classes. This class calls the read and write
+ * functions and could be used as a commandline application. Personally I mainly
+ * used it for testing purposes But This class does take command line arguments
+ * (inputFile, outputType, outputFile) to perform it's actions. Could also be
+ * used by other programs/classes to call this class
+ * 
+ * @author Timo Koole
+ */
 public class Run {
 
-	// use the classname for the logger, this way you can refactor
-	// private final static Logger LOGGER =
-	// Logger.getLogger(Run.class.getName());
-
-	public void doStuff(String inputFile, String outputType, String outputFile) {
+	public void InputToOutput(String inputFile, String outputType,
+			String outputFile) {
 
 		// setup logging
 		SimpleFormatter formatterTxt = new SimpleFormatter();
 		Logger logger = Logger.getLogger("timologger");
 		try {
-			FileHandler handler = new FileHandler("d:\\timologger.log", true);
+			FileHandler handler = new FileHandler("d:\\timologger.log");
 			handler.setFormatter(formatterTxt);
 			logger.addHandler(handler);
 		} catch (Exception ex) {
@@ -72,27 +73,41 @@ public class Run {
 			System.out.print(ex.getMessage());
 			logger.severe(ex.getMessage());
 			return;
-
 		}
-
 	}
 
 	public static void main(String[] args) {
 		Run run = new Run();
 
-		// set the LogLevel to Info, severe, warning and info will be written
-		// finest is still not written
+		String inputFile = null;
+		String outputType = null;
+		String outputFile = null;
 
-		// String inputType = "csv"; // xls, xlsx, csv
-		String inputFile = "D:\\Premium-Table-Example.xlsxz"; // D:\\Premium-Table-Example.xlsx
-		// ; D:\\simpel.xls ;
-		// "D:\\simpel.csv"
+		// commandline arguments are present use those co call the function
+		if (args.length > 0) {
+			if (args.length != 3) {
+				System.out
+						.println("Needs 3 commandline parameters: inputFile, outputType,  outputFile");
+				return;
+			}
+			for (int idx = 0; idx < args.length; idx++) {
+				inputFile = args[0];
+				outputType = args[1];
+				outputFile = args[2];
 
-		String outputType = "XML"; // msg.PM, DBMS, XML
-		String outputFile = "D:\\file.xml"; // XML is enige dat hier iets mee
-											// doet
-		run.doStuff(inputFile, outputType, outputFile);
+			}
+		} else {
+			// if not then use these testing values
+
+			inputFile = "D:\\simepl.xls";
+			outputType = "XML"; // msg.PM, DBMS, XML
+			outputFile = "D:\\file2.xml"; // only output XML does something with
+											// this dir
+
+		}
+
+		// run
+		run.InputToOutput(inputFile, outputType, outputFile);
 
 	}
-
 }
