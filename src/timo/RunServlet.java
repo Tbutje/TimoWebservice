@@ -18,14 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 public class RunServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private String inputFile; 
-	private String outputType; 
-	private String outputFile; 
-	
+	private String inputFile;
+	private String outputType;
+	private String outputFile;
+
 	private String[] columnNames = null;
 	private String[][] rowValues = null;
-	
-
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -61,59 +59,68 @@ public class RunServlet extends HttpServlet {
 		// validate input
 		// extension must be csv, xls, xlsx
 		if (!validator.checkInputExt(inputFile)) {
-			errors.put("inputFile", "Select a valid input file: csv, xls, xlsx.");
+			errors.put("inputFile",
+					"Select a valid input file: csv, xls, xlsx.");
 			valid = false;
 		}
 
 		outputType = request.getParameter("outputType");
-	
+
 		outputFile = request.getParameter("outputFile");
-		
+
 		// validate extension
-		if (!validator.checkOutputExt(outputFile)) {
-			errors.put("outputFile", "Extension must be .XML");
-			valid = false;
+		if (outputType.equals("XML")) {
+			if (!validator.checkOutputExt(outputFile)) {
+				errors.put("outputFile", "Extension must be .XML");
+				valid = false;
+			}
 		}
 
 		// validate file location
-		if(!validator.isValidFileLoc(outputFile)){
-			errors.put("outputFile", "Output location does not exist");
-			valid = false;
-			
-		}
-		
-		
-		if (valid) {
-			
-			Read inlezen = new Read();
-			List<List<String>> data = inlezen.readFile(inputFile);
-			
-			// convert naar generic format met headers
-			ConvertInputFormat convertInputFormat = new ConvertInputFormat(data);
-			columnNames = convertInputFormat.getColumnNames();
-			rowValues = convertInputFormat.getRowValues();
-			
-			// Validate data
-			if(!validator.checkColumnNames(columnNames)){
-				errors.put("inputFile", "Input file does not have required column names");
+		if (outputType.equals("XML")) {
+			if (!validator.isValidFileLoc(outputFile)) {
+				errors.put("outputFile", "Output location does not exist");
 				valid = false;
 			}
-			
-			// write data
-			if(valid){
-				request.setAttribute("rowValues", rowValues);
-				request.setAttribute("columnNames", columnNames);
-				Write write = new Write(outputType, outputFile, columnNames, rowValues);
-				write.writeToOutput();
-				errors.put("writeSucces", "succesfully written to file");
+		}
+
+		if (valid) {
+
+			// read file
+			Read reader = new Read();
+			try {
+				reader.readFile(inputFile);
+			} catch (Exception ex) {
+				valid = false;
+				errors.put("inputFile", "Cannot read input file");
+
+			}
+			columnNames = reader.getColumnNames();
+			rowValues = reader.getRowValues();
+
+			// Validate data
+			if (!validator.checkColumnNames(columnNames)) {
+				errors.put("inputFile",
+						"Input file does not have required column names");
+				valid = false;
 			}
 
-			//Run run = new Run();
-		//	run.doStuff(inputFile, outputType, outputFile);
-			
+			// write data
+			if (valid) {
+				request.setAttribute("rowValues", rowValues);
+				request.setAttribute("columnNames", columnNames);
+				Write write = new Write(outputType, outputFile, columnNames,
+						rowValues);
+				try{
+				write.writeToOutput();
+				errors.put("writeSucces", "succesfully written to file");
+				}catch(Exception ex){
+					errors.put("outputFile", "Can't write to output file: " + ex.getMessage());
+				}	
+			}
+
+
 		}
-		
-	
 
 		// error handling
 		request.setAttribute("errors", errors);
@@ -126,7 +133,6 @@ public class RunServlet extends HttpServlet {
 
 	}
 
-
 	public String getInputFile() {
 		return inputFile;
 	}
@@ -138,7 +144,7 @@ public class RunServlet extends HttpServlet {
 	public String getOutputFile() {
 		return outputFile;
 	}
-	
+
 	public String[] getColumnNames() {
 		return columnNames;
 	}
@@ -146,7 +152,5 @@ public class RunServlet extends HttpServlet {
 	public String[][] getRowValues() {
 		return rowValues;
 	}
-
-	
 
 }

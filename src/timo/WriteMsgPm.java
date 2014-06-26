@@ -1,16 +1,24 @@
 package timo;
 
+import org.apache.axis.AxisFault;
+import services.designer.pm.msg.de.TableRowListType;
+import services.designer.pm.msg.de.TableModifyRowType;
+import services.designer.pm.msg.de.SessionType;
+import services.designer.pm.msg.de.OperationResponseType;
+import services.designer.pm.msg.de.PMDesignerServices_BindingStub;
+import services.designer.pm.msg.de.PMDesignerServicesProxy;
+
 public class WriteMsgPm {
 
 	private Boolean release = true; // als deze true is dat maakt hij de
-										// connectie met de actual stub
+									// connectie met de actual stub
 
-	private services.designer.pm.msg.de.SessionType session; // verplicht
+	private SessionType session; // verplicht
 	private String name; // verplicht9
 
-	private services.designer.pm.msg.de.TableRowListType delRows;
-	private services.designer.pm.msg.de.TableModifyRowType updRows;
-	private services.designer.pm.msg.de.TableRowListType addRowsVar;
+	private TableRowListType delRows;
+	private TableModifyRowType updRows;
+	private TableRowListType addRowsVar;
 
 	// hieronder een beschrijving van de verschillende classes die als input
 	// dienen
@@ -29,67 +37,90 @@ public class WriteMsgPm {
 	// values zijn STRING!
 
 	// tableModifyRowType(keyCells, valueCells) // UPDATE ROWS
-	// services.designer.pm.msg.de.TableRowListType keyCells: // de key voor een
-	// cell? waarom dan listype weet ik ook niet, want deze heeft en cloumn en row informatie
+	// TableRowListType keyCells: // de key voor een
+	// cell? waarom dan listype weet ik ook niet, want deze heeft en cloumn en
+	// row informatie
 	// Mogelijk is de key de combinatie van huidige column names[] en values[][]
-	// Maar dan zou er eerst een read actie van de database uitgevoegd moeten worden
+	// Maar dan zou er eerst een read actie van de database uitgevoegd moeten
+	// worden
 	// Om te kijken wat de huidige values zijn.
-	// services.designer.pm.msg.de.TableRowListType valueCells: de values voor de cellen
+	// TableRowListType valueCells: de values voor
+	// de cellen
 
 	// in theorie zou je ook rows kunnen deleten, adden en updaten in 1
 	// statement, maar dat lijkt me niet gewenst
 	// daarom is elk een losse statement
 
-	public services.designer.pm.msg.de.OperationResponseType deleteRows(
-			services.designer.pm.msg.de.TableRowListType tableRowListType) {
+	public OperationResponseType deleteRows(
+			TableRowListType tableRowListType)
+			throws java.rmi.RemoteException {
 
 		this.delRows = tableRowListType;
 		this.updRows = null;
 		this.addRowsVar = null;
-		return sendToProxy();
+		try {
+			return sendToProxy();
+		} catch (java.rmi.RemoteException e) {
+			throw new java.rmi.RemoteException("Can't connect to MSG.pm");
+		}
 
 	}
 
-	public services.designer.pm.msg.de.OperationResponseType updatedRows(
-			services.designer.pm.msg.de.TableModifyRowType tableModifyRowType) {
+	public OperationResponseType updatedRows(
+			TableModifyRowType tableModifyRowType)
+			throws java.rmi.RemoteException {
 
 		this.delRows = null;
 		this.updRows = tableModifyRowType;
 		this.addRowsVar = null;
-		return sendToProxy();
+		try {
+			return sendToProxy();
+		} catch (java.rmi.RemoteException e) {
+			throw new java.rmi.RemoteException("Can't connect to MSG.pm");
+		}
 
 	}
 
-	public services.designer.pm.msg.de.OperationResponseType addRows(
-			services.designer.pm.msg.de.TableRowListType tableRowListType) {
+	public OperationResponseType addRows(
+			TableRowListType tableRowListType)
+			throws java.rmi.RemoteException {
 
 		this.delRows = null;
 		this.updRows = null;
 		this.addRowsVar = tableRowListType;
-		return sendToProxy();
+
+		try {
+			return sendToProxy();
+		} catch (java.rmi.RemoteException e) {
+			throw new java.rmi.RemoteException("Can't connect to MSG.pm");
+		}
 
 	}
 
-	private services.designer.pm.msg.de.OperationResponseType sendToProxy() {
+	private OperationResponseType sendToProxy()
+			throws java.rmi.RemoteException {
 
 		if (release) {
 			try {
-				services.designer.pm.msg.de.PMDesignerServices_BindingStub conn = new services.designer.pm.msg.de.PMDesignerServices_BindingStub();
-				services.designer.pm.msg.de.OperationResponseType result = new services.designer.pm.msg.de.OperationResponseType();
+				PMDesignerServices_BindingStub conn = new PMDesignerServices_BindingStub();
+				OperationResponseType result = new OperationResponseType();
 				try {
 					result = conn.modifyTableData(session, getName(), delRows,
 							updRows, addRowsVar);
 					return result;
 				} catch (java.rmi.RemoteException e) {
-					e.printStackTrace();
+				//	e.printStackTrace();
+					throw new java.rmi.RemoteException(
+							"Can't connect to MSG.pm");
+
 				}
-			} catch (org.apache.axis.AxisFault e) {
+			} catch (AxisFault e) {
 				e.printStackTrace();
 			}
 		} else {
 
-			services.designer.pm.msg.de.PMDesignerServicesProxy conn = new services.designer.pm.msg.de.PMDesignerServicesProxy();
-			services.designer.pm.msg.de.OperationResponseType result = new services.designer.pm.msg.de.OperationResponseType();
+			PMDesignerServicesProxy conn = new PMDesignerServicesProxy();
+			OperationResponseType result = new OperationResponseType();
 			try {
 				result = conn.modifyTableData(session, getName(), delRows,
 						updRows, addRowsVar);
@@ -110,11 +141,11 @@ public class WriteMsgPm {
 		this.name = name;
 	}
 
-	public services.designer.pm.msg.de.SessionType getSession() {
+	public SessionType getSession() {
 		return session;
 	}
 
-	public void setSession(services.designer.pm.msg.de.SessionType session) {
+	public void setSession(SessionType session) {
 		this.session = session;
 	}
 

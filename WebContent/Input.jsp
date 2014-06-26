@@ -50,7 +50,7 @@
 					onChange="findselected()">
 						<option value="XML">XML</option>
 						<option value="msg.PM">msg.PM</option>
-						<option value="DMBS">DMBS</option>
+						<option value="DBMS">DMBS</option>
 				</select></td>
 				<td><span class="error">${errors.outputType}</span></td>
 			</tr>
@@ -68,7 +68,7 @@
 	</form>
 
 
-		
+<!-- 		this will display a html table with the data when there is data -->
 		<%
 			try {
 				out.print("	<div style=\"width: 1200px; height: 300px; display: inline-block; overflow-x: auto; overflow-y: auto;\">");

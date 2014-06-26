@@ -21,14 +21,20 @@ import javax.sql.DataSource;
 public class WriteDatabase {
 	
 	
-	private String databaseName;
+	private String databaseName = null;
 	
     private Connection getConnection() throws SQLException, NamingException {
     	// deze class maakt de connectie met de database
+    	try{
         Context context = new InitialContext();
         DataSource dataSource = (DataSource) context.lookup(getDatabaseName());
         Connection connection = dataSource.getConnection();
         return connection;
+    	}catch(Exception ex){
+    	//	ex.printStackTrace();
+    		throw new NamingException("Cant connect to database");
+    	}
+        
     }
 
 	
@@ -36,6 +42,8 @@ public class WriteDatabase {
 			throws NamingException, SQLException {
 		// this function inserts into database
 		// it responds dynamically on row and col length.
+		if(databaseName == null){	throw new NamingException("Need a database name");
+		}
 		
 		
 		// generate col names
@@ -63,6 +71,7 @@ public class WriteDatabase {
 		try {
 			connection = getConnection();
 			preparedStatement = connection.prepareStatement(sql);
+		
 			for (int idx = 0; idx < rowValues[0].length; idx++) {
 				//VALID_FROM (DATE)
 				//VALID_TO (DATE)
@@ -79,7 +88,10 @@ public class WriteDatabase {
 				}
 				preparedStatement.executeUpdate();
 			}
-
+		}catch(SQLException ex){
+				throw new SQLException("Cant connect to database");
+		}catch(NamingException ex2){
+			throw new NamingException("Cant connect to database");
 		} finally {
 			if (preparedStatement != null && !preparedStatement.isClosed()) {
 				preparedStatement.close();

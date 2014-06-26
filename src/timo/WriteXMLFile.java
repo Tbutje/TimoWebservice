@@ -26,7 +26,7 @@ public class WriteXMLFile {
 	}
 	
  
-	public void write(String[] columnNames, String[][] rowValues) {
+	public void write(String[] columnNames, String[][] rowValues) throws Exception {
 
 	  try {
  
@@ -64,7 +64,8 @@ public class WriteXMLFile {
 	  } catch (ParserConfigurationException pce) {
 		pce.printStackTrace();
 	  } catch (TransformerException tfe) {
-		tfe.printStackTrace();
+		//tfe.printStackTrace();
+		  throw new Exception("Can't write to file");
 	  }
 	}
 }

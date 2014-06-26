@@ -10,15 +10,12 @@ import java.util.logging.SimpleFormatter;
 import javax.naming.NamingException;
 
 import org.apache.axis.types.UnsignedInt;
+import org.apache.axis.AxisFault;
 
 import services.designer.pm.msg.de.SessionType;
 import services.designer.pm.msg.de.TableRowListType;
 
 public class Write {
-
-	// for logging
-	Logger logger = Logger.getLogger(Write.class.getName());
-	FileHandler fh;
 
 	private String[] columnNames;
 	private String[][] rowValues;
@@ -27,29 +24,17 @@ public class Write {
 
 	Write(String outputType, String OutputFile, String[] columnNames,
 			String[][] rowValues) {
-		this.columnNames = columnNames;
-		this.rowValues = rowValues;
 		this.outputType = outputType;
 		this.OutputFile = OutputFile;
+		this.columnNames = columnNames;
+		this.rowValues = rowValues;
+		
 	}
 
-	public void writeToOutput() {
+	public void writeToOutput() throws Exception, java.rmi.RemoteException,
+			SQLException, NamingException {
 
-		// init logger
-		try {
-			fh = new FileHandler("D:/TimoLogFile.log");
-			logger.addHandler(fh);
-			SimpleFormatter formatter = new SimpleFormatter();
-			fh.setFormatter(formatter);
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	
-		switch (outputType) {
-		case "msg.PM":
+		if (outputType.equals("msg.PM")) {
 			// make new modifytabledata bean
 			WriteMsgPm modifyTableData = new WriteMsgPm();
 			// make name and session
@@ -68,27 +53,34 @@ public class Write {
 			tableRowListType.setRowValues(rowValues);
 
 			// maak de call
-			modifyTableData.addRows(tableRowListType);
-			
-			break;
+			try {
+				modifyTableData.addRows(tableRowListType);
+			} catch (java.rmi.RemoteException ex) {
+				throw new java.rmi.RemoteException(ex.getMessage());
+			}
 
-		case "DBMS":
+		}else if(outputType.equalsIgnoreCase("DBMS")){
 			try {
 				WriteDatabase database = new WriteDatabase();
 				database.setDatabaseName("DBMS");
 				database.insertTable(columnNames, rowValues);
+				System.out.println("written to db");
 			} catch (SQLException | NamingException ex) {
-				logger.log(Level.SEVERE, "Error {0}", ex);
-				System.out.println(ex.getMessage());
+				// logger.log(Level.SEVERE, "Error {0}", ex);
+				throw new Exception(ex.getMessage());
 			}
-			break;
-
-		case "XML":
+		}else if(outputType.equalsIgnoreCase("XML")){
 			WriteXMLFile xlmwriter = new WriteXMLFile(OutputFile);
-			xlmwriter.write(columnNames, rowValues);
-			break;
-
-		}
+			try {
+				xlmwriter.write(columnNames, rowValues);
+			} catch (Exception ex) {
+				throw ex;
+			}
+		}else{
+			throw new Exception("Unknown extension");
+			}
 	}
-
 }
+
+
+
