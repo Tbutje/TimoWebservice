@@ -34,7 +34,7 @@ public class Write {
 	public void writeToOutput() throws Exception, java.rmi.RemoteException,
 			SQLException, NamingException {
 
-		if (outputType.equals("msg.PM")) {
+		if (outputType.equalsIgnoreCase("msg.PM")) {
 			// make new modifytabledata bean
 			WriteMsgPm modifyTableData = new WriteMsgPm();
 			// make name and session
@@ -77,7 +77,7 @@ public class Write {
 				throw ex;
 			}
 		}else{
-			throw new Exception("Unknown extension");
+			throw new Exception("Unknown output type");
 			}
 	}
 }

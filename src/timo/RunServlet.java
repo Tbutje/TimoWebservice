@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,6 +53,17 @@ public class RunServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		// setup logging
+		SimpleFormatter formatterTxt = new SimpleFormatter();
+		Logger logger = Logger.getLogger("timologger");
+		try {
+			FileHandler handler = new FileHandler("d:\\timologger.log", true);
+			handler.setFormatter(formatterTxt);
+			logger.addHandler(handler);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 		Map<String, String> errors = new HashMap<String, String>();
 		ValidateInput validator = new ValidateInput();
 		Boolean valid = true; // this will change to false if any input variable
@@ -93,6 +107,7 @@ public class RunServlet extends HttpServlet {
 			} catch (Exception ex) {
 				valid = false;
 				errors.put("inputFile", "Cannot read input file");
+				logger.severe(ex.getMessage());
 
 			}
 			columnNames = reader.getColumnNames();
@@ -111,14 +126,15 @@ public class RunServlet extends HttpServlet {
 				request.setAttribute("columnNames", columnNames);
 				Write write = new Write(outputType, outputFile, columnNames,
 						rowValues);
-				try{
-				write.writeToOutput();
-				errors.put("writeSucces", "succesfully written to file");
-				}catch(Exception ex){
-					errors.put("outputFile", "Can't write to output file: " + ex.getMessage());
-				}	
+				try {
+					write.writeToOutput();
+					errors.put("writeSucces", "succesfully written to file");
+				} catch (Exception ex) {
+					errors.put("outputFile", "Can't write to output file: "
+							+ ex.getMessage());
+					logger.severe(ex.getMessage());
+				}
 			}
-
 
 		}
 

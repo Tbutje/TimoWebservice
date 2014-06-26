@@ -100,10 +100,11 @@ public class WriteMsgPm {
 	private OperationResponseType sendToProxy()
 			throws java.rmi.RemoteException {
 
+		OperationResponseType result = new OperationResponseType();
 		if (release) {
 			try {
 				PMDesignerServices_BindingStub conn = new PMDesignerServices_BindingStub();
-				OperationResponseType result = new OperationResponseType();
+				
 				try {
 					result = conn.modifyTableData(session, getName(), delRows,
 							updRows, addRowsVar);
@@ -120,7 +121,6 @@ public class WriteMsgPm {
 		} else {
 
 			PMDesignerServicesProxy conn = new PMDesignerServicesProxy();
-			OperationResponseType result = new OperationResponseType();
 			try {
 				result = conn.modifyTableData(session, getName(), delRows,
 						updRows, addRowsVar);
@@ -129,7 +129,7 @@ public class WriteMsgPm {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return result;
 
 	}
 
