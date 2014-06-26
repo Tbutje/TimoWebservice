@@ -37,7 +37,7 @@
 
 	<form action="RunServlet" method="post">
 
-		<table>
+		<table >
 			<tr>
 				<td>inputFile</td>
 				<td><input type="file" name="inputFile"
@@ -66,22 +66,40 @@
 			class="confirmed">${errors.writeSucces}</span>
 
 	</form>
-	<%
-	try{
-		String[][] rowValues = (String[][]) request.getAttribute("rowValues");
-		String[] columnNames = (String[]) request.getAttribute("columnNames");
 
-		for (int rowIdx = 0; rowIdx < rowValues.length; rowIdx++) {
 
-			for (int colIdx = 0; colIdx < columnNames.length; colIdx++) {
-				out.println(rowValues[rowIdx][colIdx]);
-			}
-		}
-	}catch(Exception ex){
-	}
-	
 		
-	%>
+		<%
+			try {
+				out.print("	<div style=\"width: 1200px; height: 300px; display: inline-block; overflow-x: auto; overflow-y: auto;\">");
+				
+				String[][] rowValues = (String[][]) request
+						.getAttribute("rowValues");
+				String[] columnNames = (String[]) request
+						.getAttribute("columnNames");
+
+				out.print("<table class=\"table\">");
+
+				for (int colIdx = 0; colIdx < columnNames.length; colIdx++) {
+					out.println("<th>" + columnNames[colIdx] + "</th>");
+				}
+
+				for (int rowIdx = 0; rowIdx < rowValues.length; rowIdx++) {
+					out.print("<tr>");
+
+					for (int colIdx = 0; colIdx < columnNames.length; colIdx++) {
+						out.println("<td>" + rowValues[rowIdx][colIdx]
+								+ "</td>");
+					}
+					out.print("</tr>");
+				}
+				out.print("</table>");
+				out.print("</div>");
+			} catch (Exception ex) {
+			}
+		%>
+	
+
 
 
 </BODY>

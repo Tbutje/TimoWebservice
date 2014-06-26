@@ -3,12 +3,12 @@
 
 .grijze_achtergrond
 {
-    background-color:#ebe4ea;
+    background-color:#EBEBE0;
 }
 
 .kop
 {
-    font-size:30pt;
+    font-size:20pt;
 }
 
 .error
@@ -19,4 +19,25 @@
 .confirmed
 {
 	color:green;
+}
+
+/***** TABLES */
+.table
+{
+    width: 100%;
+    border-collapse: collapse; 
+    background:white;
+
+}
+/* td staat voor standard talbe, th voor header table */
+.table td {
+    padding: 2px;
+    border: 1px solid #ccccff; /* let's apply borders */
+}
+
+.table th
+{
+    background: #eeeeff;
+    font-weight: normal;
+    font-size:12pt;
 }
