@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-
-
 <html xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
+<!-- This java script is used to "grey out" the file output box -->
+<!-- since it should only be used when writing to xml -->
+<!-- It is called everytime a change is made in dropdown list-->
 <script type="text/javascript">
 	function findselected() {
 		var selMenu = document.getElementById('outmenu');
@@ -18,29 +17,24 @@
 			txtField.disabled = true;
 			txtField.value = "";
 		}
-
 	}
 </script>
 
-
-
-
 <h:head>
-	<title>DataLeesApp</title>
+	<title>Convert Input to Output</title>
 	<link href="timostyle.css" rel="stylesheet" type="text/css" />
-
 </h:head>
 
+<body class="background">
+	<div class="title">Convert Input to Output</div>
 
-<BODY class="grijze_achtergrond">
-	<div class="kop">Convert Input to Output</div>
-
+	<!-- The servlet processes input files when create File is pressed-->
+	<!-- the error classes are used to display errors that are send by the servlet-->
 	<form action="RunServlet" method="post">
-
-		<table >
+		<table>
 			<tr>
 				<td>inputFile</td>
-				<td><input type="file" name="inputFile" 
+				<td><input type="file" name="inputFile"
 					value="${param.inputFile}" accept=".csv, .xlsx, .xls, .xml" /></td>
 				<td><span class="error">${errors.inputFile}</span></td>
 			</tr>
@@ -66,37 +60,41 @@
 			class="confirmed">${errors.writeSucces}</span>
 
 	</form>
+	<br/>
 
 
-<!-- 		this will display a html table with the data when there is data -->
-		<%
-			try {
-				out.print("	<div style=\"width: 1200px; height: 300px; display: inline-block; overflow-x: auto; overflow-y: auto;\">");
-				
-				String[][] rowValues = (String[][]) request
-						.getAttribute("rowValues");
-				String[] columnNames = (String[]) request
-						.getAttribute("columnNames");
+	<!-- this will display a html table with the data when there is data -->
+	<!-- the try and empty catch result in that the table is only generated with data -->
+	<%
+		try {
+			out.print("	<div style=\"width: 1200px; height: 300px; display: inline-block; overflow-x: auto; overflow-y: auto;\">");
 
-				out.print("<table class=\"table\">");
+			String[][] rowValues = (String[][]) request
+					.getAttribute("rowValues");
+			String[] columnNames = (String[]) request
+					.getAttribute("columnNames");
+
+			out.print("<table class=\"table\">");
+
+			// generate headers
+			for (int colIdx = 0; colIdx < columnNames.length; colIdx++) {
+				out.println("<th>" + columnNames[colIdx] + "</th>");
+			}
+
+			// generate rows
+			for (int rowIdx = 0; rowIdx < rowValues.length; rowIdx++) {
+				out.print("<tr>");
 
 				for (int colIdx = 0; colIdx < columnNames.length; colIdx++) {
-					out.println("<th>" + columnNames[colIdx] + "</th>");
+					out.println("<td>" + rowValues[rowIdx][colIdx]
+							+ "</td>");
 				}
-
-				for (int rowIdx = 0; rowIdx < rowValues.length; rowIdx++) {
-					out.print("<tr>");
-
-					for (int colIdx = 0; colIdx < columnNames.length; colIdx++) {
-						out.println("<td>" + rowValues[rowIdx][colIdx]
-								+ "</td>");
-					}
-					out.print("</tr>");
-				}
-				out.print("</table>");
-				out.print("</div>");
-			} catch (Exception ex) {
+				out.print("</tr>");
 			}
-		%>
-	
-</BODY>
+			out.print("</table>");
+			out.print("</div>");
+		} catch (Exception ex) {
+		}
+	%>
+
+</body>

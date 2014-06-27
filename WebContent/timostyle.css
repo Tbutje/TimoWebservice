@@ -1,12 +1,12 @@
 @CHARSET "ISO-8859-1";
 
 
-.grijze_achtergrond
+.background
 {
     background-color:#EBEBE0;
 }
 
-.kop
+.title
 {
     font-size:20pt;
 }
