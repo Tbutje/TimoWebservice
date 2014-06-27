@@ -1,20 +1,18 @@
 package timo;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 import javax.naming.NamingException;
-
 import org.apache.axis.types.UnsignedInt;
-import org.apache.axis.AxisFault;
-
 import services.designer.pm.msg.de.SessionType;
 import services.designer.pm.msg.de.TableRowListType;
 
+/**
+ * This class acts like a switch. Depending on outputType it will call the correct write function
+ * Because of this structure it is quite easy to add more write options. Simple create the class
+ * and call it from this function
+ * 
+ * @author Timo Koole
+ */
 public class Write {
 
 	private String[] columnNames;
@@ -28,59 +26,56 @@ public class Write {
 		this.OutputFile = OutputFile;
 		this.columnNames = columnNames;
 		this.rowValues = rowValues;
-		
+
 	}
 
 	public void writeToOutput() throws Exception, java.rmi.RemoteException,
 			SQLException, NamingException {
 
 		if (outputType.equalsIgnoreCase("msg.PM")) {
-			// make new modifytabledata bean
+			// make new modifytabledata instance
 			WriteMsgPm modifyTableData = new WriteMsgPm();
-			// make name and session
+			// make name and session.
 			modifyTableData.setName("test");
 			SessionType session = new SessionType();
 			session.setSessionID("SessionID");
-			// beetje overbodig dit, maar blijkbaar moet token een unsigned int
-			// zijn.
+		
+			// apperantely  sessiontoken is a unsigned int
 			UnsignedInt token = new UnsignedInt();
 			token.setValue(5);
 			session.setSessionToken(token);
 
-			// maak het object voor de modifytable class
+			// create the TableRowListype for calling the write function
 			TableRowListType tableRowListType = new TableRowListType();
 			tableRowListType.setColumnNames(columnNames);
 			tableRowListType.setRowValues(rowValues);
 
-			// maak de call
+			// write to the service
 			try {
 				modifyTableData.addRows(tableRowListType);
 			} catch (java.rmi.RemoteException ex) {
 				throw new java.rmi.RemoteException(ex.getMessage());
 			}
 
-		}else if(outputType.equalsIgnoreCase("DBMS")){
+		} else if (outputType.equalsIgnoreCase("DBMS")) {
 			try {
 				WriteDatabase database = new WriteDatabase();
 				database.setDatabaseName("DBMS");
 				database.insertTable(columnNames, rowValues);
 				System.out.println("written to db");
 			} catch (SQLException | NamingException ex) {
-				// logger.log(Level.SEVERE, "Error {0}", ex);
 				throw new Exception(ex.getMessage());
 			}
-		}else if(outputType.equalsIgnoreCase("XML")){
+			
+		} else if (outputType.equalsIgnoreCase("XML")) {
 			WriteXMLFile xlmwriter = new WriteXMLFile(OutputFile);
 			try {
 				xlmwriter.write(columnNames, rowValues);
 			} catch (Exception ex) {
 				throw ex;
 			}
-		}else{
+		} else {
 			throw new Exception("Unknown output type");
-			}
+		}
 	}
 }
-
-
-

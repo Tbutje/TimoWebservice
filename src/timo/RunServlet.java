@@ -79,7 +79,7 @@ public class RunServlet extends HttpServlet {
 		inputFile = request.getParameter("inputFile");
 		// validate input
 		// extension must be csv, xls, xlsx
-		if (!validator.checkInputExt(inputFile)) {
+		if (!validator.isValidInputExt(inputFile)) {
 			errors.put("inputFile",
 					"Select a valid input file: csv, xls, xlsx.");
 			valid = false;
@@ -88,9 +88,9 @@ public class RunServlet extends HttpServlet {
 		outputType = request.getParameter("outputType");
 
 		outputFile = request.getParameter("outputFile");
-		// validate extension
+		// validate extension, this is only done when outputType == XML
 		if (outputType.equals("XML")) {
-			if (!validator.checkOutputExt(outputFile)) {
+			if (!validator.isValidOutputExt(outputFile)) {
 				errors.put("outputFile", "Extension must be .XML");
 				valid = false;
 			}
@@ -123,37 +123,42 @@ public class RunServlet extends HttpServlet {
 				rowValues = reader.getRowValues();
 
 				// Validate column names
-				if (!validator.checkColumnNames(columnNames)) {
+				if (!validator.isColumnNamesValid(columnNames)) {
 					errors.put("inputFile",
 							"Input file does not have required column names");
 					valid = false;
 				}
-				// validate data type OBJECT_TYPE column
-				if (!validator.isTypeValidObject(columnNames, rowValues)) {
-					errors.put("inputFile",
-							"Data format of column OBJECT_TYPE is not correct");
-					valid = false;
-				}
+				if (valid) {
+					// validate data type OBJECT_TYPE column
+					if (!validator.isTypeValidObject(columnNames, rowValues)) {
+						errors.put("inputFile",
+								"Data format of column OBJECT_TYPE is not correct");
+						valid = false;
+					}
 
-				// validate VALID_FROM column
-				if (!validator.isTypeValidValidFrom(columnNames, rowValues)) {
-					errors.put("inputFile",
-							"Data format of column VALID_FROM is not correct");
-					valid = false;
-				}
+					// validate VALID_FROM column
+					if (!validator.isTypeValidValidFrom(columnNames, rowValues)) {
+						errors.put("inputFile",
+								"Data format of column VALID_FROM is not correct");
+						valid = false;
+					}
 
-				// validate VALID_TO column
-				if (!validator.isTypeValidValidTo(columnNames, rowValues)) {
-					errors.put("inputFile",
-							"Data format of column VALID_TO is not correct");
-					valid = false;
+					// validate VALID_TO column
+					if (!validator.isTypeValidValidTo(columnNames, rowValues)) {
+						errors.put("inputFile",
+								"Data format of column VALID_TO is not correct");
+						valid = false;
+					}
 				}
 			}
 
 			// write data
 			if (valid) {
+				// send rowvalues and columnnames to the client to display
 				request.setAttribute("rowValues", rowValues);
 				request.setAttribute("columnNames", columnNames);
+				
+				//write to file
 				Write write = new Write(outputType, outputFile, columnNames,
 						rowValues);
 				try {
@@ -167,7 +172,7 @@ public class RunServlet extends HttpServlet {
 			}
 		}
 
-		// Sens errors to browser
+		// Send messages
 		request.setAttribute("errors", errors);
 
 		// return to page

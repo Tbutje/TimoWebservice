@@ -64,6 +64,9 @@ public class Run {
 		}
 		// ******* print information to console
 
+		ValidateInput validator = new ValidateInput();
+		System.out.println(validator.isColumnNamesValid(columnNames));
+		
 		// write to output
 		Write write = new Write(outputType, outputFile, columnNames, rowValues);
 		try {

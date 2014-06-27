@@ -2,9 +2,18 @@ package timo;
 
 import java.io.File;
 
+/**
+ * This class has several functions to validate input. Each function should be
+ * called individually. Each function returns true when input is valid
+ * As of this moment only RunServlet calls these methods to
+ * validate the user input. But since all functions are in this class it is
+ * quite easy to reuse them for other Gui's
+ * 
+ * @author Timo Koole
+ */
 public class ValidateInput {
 
-	public Boolean checkInputExt(String fileName) {
+	public Boolean isValidInputExt(String fileName) {
 		// check if input is within allowed file extensions
 
 		String ext = getFileExtension(fileName);
@@ -19,8 +28,8 @@ public class ValidateInput {
 		return false;
 	}
 
-	public Boolean checkOutputExt(String fileName) {
-		// check if input is within allowed file extensions
+	public Boolean isValidOutputExt(String fileName) {
+		// check if output is within allowed file extensions
 
 		String ext = getFileExtension(fileName);
 		String[] filetypes = { "XML" };
@@ -34,12 +43,12 @@ public class ValidateInput {
 		return false;
 	}
 
-	public Boolean checkColumnNames(String[] columnNames) {
-		// check if input is within allowed file extensions
+	public Boolean isColumnNamesValid(String[] columnNames) {
+		// check if all required column names are there
 
 		String[] reqColNames = { "VALID_FROM", "VALID_TO", "OBJECT_TYPE",
 				"CODE" };
-
+		
 		for (String reqname : reqColNames) {
 			Boolean match = new Boolean(false);
 
@@ -53,32 +62,27 @@ public class ValidateInput {
 			if (!match) {
 				return false;
 			}
-
-		}
+		} // end reqColNames loop
 
 		return true;
 	}
 
 	public Boolean isTypeValidObject(String[] columnNames, String[][] rowValues) {
 		Boolean result = true;
-		// VALID_FROM == date
-		// VALID_TO == date
-		// CODE == string
-
 		// OBJECT_TYPE == int
 
 		// first get column idx
-		Integer objectIdx = null;
+		Integer colIdx = null;
 		for (int idx = 0; idx < columnNames.length; idx++) {
 			if (columnNames[idx].equals("OBJECT_TYPE")) {
-				objectIdx = idx;
+				colIdx = idx;
 				break;
 			}
 		}
 		// now check values in array
 		for (int idx = 0; idx < rowValues.length; idx++) {
 			try {
-				Integer.parseInt(rowValues[idx][objectIdx]);
+				Integer.parseInt(rowValues[idx][colIdx]);
 			} catch (NumberFormatException e) {
 				result = false;
 			}
@@ -91,10 +95,10 @@ public class ValidateInput {
 		// VALID_TO == date
 
 		// first get column idx
-		Integer objectIdx = null;
+		Integer colIdx = null;
 		for (int idx = 0; idx < columnNames.length; idx++) {
 			if (columnNames[idx].equals("VALID_TO")) {
-				objectIdx = idx;
+				colIdx = idx;
 				break;
 			}
 		}
@@ -102,8 +106,9 @@ public class ValidateInput {
 		// now check values in array
 		for (int idx = 0; idx < rowValues.length; idx++) {
 			// use regular expression to match date format
-			if (!(rowValues[idx][objectIdx]
-					.matches("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d") || rowValues[idx][objectIdx]
+			// <+> is apperantly used for empty values
+			if (!(rowValues[idx][colIdx]
+					.matches("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d") || rowValues[idx][colIdx]
 					.equals("<+>"))) {
 				result = false;
 			}
@@ -137,30 +142,22 @@ public class ValidateInput {
 	}
 
 	public Boolean isValidFileLoc(String filename) {
-
-		// String fname = "";
+		// check if filelocation is valid
 		String ext;
 		int mid = filename.lastIndexOf("\\");
 		if (mid < 0) {
-			return false; // dit gebuert er als er uberhaupt een \ in de naam
-							// zit
+			return false; // when there is no backslash at all in the name
 		}
 		ext = filename.substring(0, mid);
 		File f = new File(ext);
 
 		return f.isDirectory();
-
 	}
 
-	private static String getFileExtension(String fname2) {
-		// gebruik deze functie voor het lezen van de extensie
-		String fileName = fname2;
-		// String fname = "";
-		String ext = "";
+	private static String getFileExtension(String fileName) {
+		String ext;
 		int mid = fileName.lastIndexOf(".");
-		// fname = fileName.substring(0, mid);
 		ext = fileName.substring(mid + 1, fileName.length());
 		return ext;
 	}
-
 }
