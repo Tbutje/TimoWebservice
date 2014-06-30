@@ -4,7 +4,7 @@ import java.util.List;
 
 
 /**
- * This Class Converts List<List<String>> coming from a data soure to
+ * This Class Converts List<List<String>> coming from a data source to
  * the required format of columnNames[] and rowValues[][]
  * @author Timo Koole
  */
@@ -15,7 +15,7 @@ public class ConvertInputFormat {
 	
 	public ConvertInputFormat(List<List<String>> data) {
 		
-		// java.lang.String[] columnNames: 1 dimensional array with collumn names
+		// java.lang.String[] columnNames: 1 dimensional array with column names
 		// java.lang.String[][] rowValues: 2 dimensional array with row values
 		// Both array's are strings
 		

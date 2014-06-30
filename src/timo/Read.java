@@ -3,12 +3,12 @@ package timo;
 import java.util.List;
 
 /**
- * This Reader calls other classes named Readxx depending on the file extension
+ * This Reader calls other classes named Read... depending on the file extension.
  * The other read classes return a List<List<String>>. Since the required end
  * format is columnNames[] and rowValues[][] the List is converted to this
- * filetype Because of the two return values I chose to not have a return
+ * filetype. Because of the two return values I chose to not have a return
  * statement but have the higher classes call the getter of each type.
- * Alternatively i could have another class, just like in the MsgPm library,
+ * Alternatively i could have made another class, just like in the MsgPm library,
  * that combines the two. However for me it was easyer to connect with the GUI
  * etc. to keep it split up. But it could be argued that they should infact be
  * combined to one class

@@ -13,7 +13,7 @@ import services.designer.pm.msg.de.PMDesignerServicesProxy;
  * This class uses the methods and types generated based on the .wsdl file. In
  * theory the method modifyTableData can delete, add and update in one
  * statement. But it seems like a bad practice to do so. Therefore I made a
- * seperate function for add, delete and update. Each then calls the sendToProxy
+ * separate function for add, delete and update. Each then calls the sendToProxy
  * method. Since I have no idea of all the service variables such as Endpoint
  * etc. it doesnt work. Therefore this class is not fully tested and maybe I
  * made some incorrect assumptions about how it should be used
@@ -44,13 +44,13 @@ public class WriteMsgPm {
 
 	// tableRowListType(columnNames,rowValues) // DELETE and ADD ROWS
 	// java.lang.String[] columnNames: 1 dimensional string array with column names
-	// java.lang.String[][] rowValues: 2 dimensional string arrau with row values
+	// java.lang.String[][] rowValues: 2 dimensional string array with row values
 	// Both value types are String, presumably the webservice converts it back to String/float/integer
 	// but I can only guess
 
 	// tableModifyRowType(keyCells, valueCells) // UPDATE ROWS
 	// TableRowListType keyCells: Used to identify cells. presumably the combination
-	// of column names and values is the key.
+	// 			of column names and values is the key.
 	// TableRowListType valueCells: cell values
 
 

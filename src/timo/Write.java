@@ -7,9 +7,9 @@ import services.designer.pm.msg.de.SessionType;
 import services.designer.pm.msg.de.TableRowListType;
 
 /**
- * This class acts like a switch. Depending on outputType it will call the correct write function
- * Because of this structure it is quite easy to add more write options. Simple create the class
- * and call it from this function
+ * This class acts like a switch. Depending on outputType it will call the
+ * correct write function Because of this structure it is quite easy to add more
+ * write options. Simple create the class and call it from this function
  * 
  * @author Timo Koole
  */
@@ -31,6 +31,8 @@ public class Write {
 
 	public void writeToOutput() throws Exception, java.rmi.RemoteException,
 			SQLException, NamingException {
+		// this function will also throw any found exceptions to higher functions
+		// makes it easier to display errors in gui
 
 		if (outputType.equalsIgnoreCase("msg.PM")) {
 			// make new modifytabledata instance
@@ -39,8 +41,8 @@ public class Write {
 			modifyTableData.setName("test");
 			SessionType session = new SessionType();
 			session.setSessionID("SessionID");
-		
-			// apperantely  sessiontoken is a unsigned int
+
+			// apperantely sessiontoken is a unsigned int
 			UnsignedInt token = new UnsignedInt();
 			token.setValue(5);
 			session.setSessionToken(token);
@@ -51,22 +53,15 @@ public class Write {
 			tableRowListType.setRowValues(rowValues);
 
 			// write to the service
-			try {
-				modifyTableData.addRows(tableRowListType);
-			} catch (java.rmi.RemoteException ex) {
-				throw new java.rmi.RemoteException(ex.getMessage());
-			}
+			modifyTableData.addRows(tableRowListType);
 
 		} else if (outputType.equalsIgnoreCase("DBMS")) {
-			try {
-				WriteDatabase database = new WriteDatabase();
-				database.setDatabaseName("DBMS");
-				database.insertTable(columnNames, rowValues);
-				System.out.println("written to db");
-			} catch (SQLException | NamingException ex) {
-				throw new Exception(ex.getMessage());
-			}
-			
+
+			WriteDatabase database = new WriteDatabase();
+			database.setDatabaseName("DBMS");
+			database.insertTable(columnNames, rowValues);
+			System.out.println("written to db");
+
 		} else if (outputType.equalsIgnoreCase("XML")) {
 			WriteXMLFile xlmwriter = new WriteXMLFile(OutputFile);
 			try {

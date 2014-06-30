@@ -19,12 +19,14 @@ public class Run {
 			String outputFile) {
 
 		// setup logging
-		SimpleFormatter formatterTxt = new SimpleFormatter();
+		// switched file writing off, since this will write to a dir that may
+		// not exist for whoever is testing this program
+		//SimpleFormatter formatterTxt = new SimpleFormatter();
 		Logger logger = Logger.getLogger("timologger");
 		try {
-			FileHandler handler = new FileHandler("d:\\timologger.log");
-			handler.setFormatter(formatterTxt);
-			logger.addHandler(handler);
+		//	FileHandler handler = new FileHandler("d:\\timologger.log");
+		//	handler.setFormatter(formatterTxt);
+		//	logger.addHandler(handler);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -63,9 +65,6 @@ public class Run {
 			System.out.print("\n");
 		}
 		// ******* print information to console
-
-		ValidateInput validator = new ValidateInput();
-		System.out.println(validator.isColumnNamesValid(columnNames));
 		
 		// write to output
 		Write write = new Write(outputType, outputFile, columnNames, rowValues);
@@ -86,7 +85,7 @@ public class Run {
 		String outputType = null;
 		String outputFile = null;
 
-		// commandline arguments are present use those co call the function
+		// if commandline arguments are present use those to call the function
 		if (args.length > 0) {
 			if (args.length != 3) {
 				System.out
@@ -102,7 +101,7 @@ public class Run {
 		} else {
 			// if not then use these testing values
 
-			inputFile = "D:\\simepl.xls";
+			inputFile = "D:\\test.xls";
 			outputType = "XML"; // msg.PM, DBMS, XML
 			outputFile = "D:\\file2.xml"; // only output XML does something with
 											// this dir

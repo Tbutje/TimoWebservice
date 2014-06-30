@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class reads a csv into a list and returns it to Read Separator is set in
+ * This class reads a csv into a list and returns it to Read. Separator is set in
  * the class, better would be to have a option in the gui
  * 
  * @author Timo Koole

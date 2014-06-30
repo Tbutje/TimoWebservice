@@ -15,8 +15,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- * This class reads a excel file and stores it in a list. Based on the file
- * extension it will use either the xls or xlsx library's I perform a weird
+ * This class reads an excel file and stores it in a list. Based on the file
+ * extension it will use either the xls or xlsx library's. I perform a weird
  * conversion on Numeric values. I had a weird problem because excel stores all
  * values as a float. Therefore 1 becomes 1.0. Therefore I chose to remove the
  * trailing .0 of all the strings. Side effect is that 1.0000 also becomes 1 But
@@ -49,7 +49,7 @@ public class ReadExcel {
 				sheet = workbookXssf.getSheetAt(0);
 			}
 
-			// Iterate through each rows
+			// Iterate through each row
 			Iterator<Row> rowIterator = sheet.iterator();
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
@@ -69,7 +69,7 @@ public class ReadExcel {
 						// this operation may look weird. but excel sees all
 						// numbers as floats causing issues with integers since
 						// it adds .0 to each integer
-						// therefore we can safely remove every .0
+						// therefore we can safely remove every .0 at the end of a string
 						String tmp = String.valueOf(cell.getNumericCellValue());
 						if (tmp.substring(tmp.length() - 2, tmp.length())
 								.equals(".0")) {

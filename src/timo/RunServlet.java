@@ -1,9 +1,7 @@
 package timo;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -58,12 +56,14 @@ public class RunServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		// setup logging
-		SimpleFormatter formatterTxt = new SimpleFormatter();
+		// switched file writing off, since this will write to a dir that may
+		// not exist for whoever is testing this program
+		//SimpleFormatter formatterTxt = new SimpleFormatter();
 		Logger logger = Logger.getLogger("timologger");
 		try {
-			FileHandler handler = new FileHandler("d:\\timologgui.log");
-			handler.setFormatter(formatterTxt);
-			logger.addHandler(handler);
+			//FileHandler handler = new FileHandler("d:\\timologgui.log");
+			//handler.setFormatter(formatterTxt);
+			//logger.addHandler(handler);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

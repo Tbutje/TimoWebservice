@@ -29,7 +29,7 @@
     background:white;
 
 }
-/* td staat voor standard talbe, th voor header table */
+/* td is standard table, th is header table*/
 .table td {
     padding: 2px;
     border: 1px solid #ccccff; /* let's apply borders */
